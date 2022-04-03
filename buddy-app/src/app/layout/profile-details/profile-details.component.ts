@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { dataService } from 'src/app/services/data.service';
+
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
 
 @Component({
   selector: 'app-profile-details',
@@ -8,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileDetailsComponent implements OnInit {
 
   profileInfoSaved: boolean = false;
+  studentImage: any;
 
   student: any = {
     name : '',
@@ -16,7 +22,8 @@ export class ProfileDetailsComponent implements OnInit {
     module : '',
     startDate : null,
     endDate : null,
-    country : ''
+    country : '',
+    hobby : ''
   }
 
   modules = [
@@ -47,8 +54,11 @@ export class ProfileDetailsComponent implements OnInit {
     'Amsterdam'
   ];
 
-  
-  constructor() { }
+  selectedFile: ImageSnippet | undefined;
+
+  constructor(
+    private dataService : dataService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -56,5 +66,31 @@ export class ProfileDetailsComponent implements OnInit {
   SaveProfile(){
     this.profileInfoSaved = true;
     console.log('profile info saved.',this.student);
+  }
+
+  
+  processProfileImage(profileImage: any) {
+    const file: File = profileImage.files[0];
+    const reader = new FileReader();
+
+    reader.addEventListener('load', (event: any) => {
+
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+      // remove this later
+      const formData = new FormData();
+
+      formData.append('image', this.selectedFile.file);
+       // remove this later
+
+      // this.dataService.uploadProfileImage(this.selectedFile.file).subscribe(
+      //   (response) => {
+      //     this.studentImage = response;
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   });
+    });
+
+    reader.readAsDataURL(file);
   }
 }

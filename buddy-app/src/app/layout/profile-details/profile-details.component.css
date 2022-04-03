@@ -1,5 +1,5 @@
 .input-width{
-    width: 33.3% !important;
+    width: 50% !important;
 }
 
 .form-div-margin{
@@ -14,4 +14,9 @@
     margin-top: 20px;
     font-weight: 600;
     font-size: 20px;
+}
+
+.profile-image{
+    width: 100px;
+    height: 100px;
 }
