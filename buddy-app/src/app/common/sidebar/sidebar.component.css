@@ -1,0 +1,15 @@
+.div-css{
+    background-color: black;
+    height: 720px;
+}
+.div-css p{
+    color: white;
+    margin: 10px;
+    padding: 10px;
+    font-weight: 600;
+}
+.list-css li{
+    border: none;
+    background-color: black;
+    color: white;
+}

@@ -12,6 +12,11 @@ const routes: Routes = [{
 
     },
     {
+      path: 'myProfile',
+      loadChildren: () => import('./features/profile/profile-routing.module').then(m => m.ProfileRoutingModule)
+
+    },
+    {
       path: 'yourBuddy',
       loadChildren: () => import('./features/your-buddy/your-buddy-routing.module').then(m => m.YourBuddyRoutingModule)
 
