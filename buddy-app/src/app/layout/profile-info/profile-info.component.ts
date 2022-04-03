@@ -17,10 +17,13 @@ export class ProfileInfoComponent implements OnInit {
     hobby : ''
   }
 
+  isMessageBoxOpened:boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
     this.buddy = {
+      image : './../../../assets/images/profile-picture.jpg',
       name : 'Ankit Khule',
       bio : 'I have completed my Masters in Business Analytics with 1:1 score in January 2022.',
       module : 'Msc in Business Analytics',
@@ -29,6 +32,14 @@ export class ProfileInfoComponent implements OnInit {
       country : 'India',
       hobby : 'Football'
     }
+  }
+
+  openMessageBox(){
+    this.isMessageBoxOpened = true;
+  }
+
+  displayBuddyInfo(event: any){
+    this.isMessageBoxOpened = event;
   }
 
 }

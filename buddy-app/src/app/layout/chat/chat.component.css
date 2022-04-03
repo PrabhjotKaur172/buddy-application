@@ -1,0 +1,22 @@
+.card-height{
+    height: 600px;
+}
+
+.card-header-css{
+    padding: 5px;
+    background-color: white;
+    font-weight: 600;
+    font-size: 25px;
+    color: #084298;
+
+}
+
+.float-right{
+    float: right;
+    cursor: pointer;
+}
+
+.profile-image{
+    width: 60px;
+    height: 60px;
+}
