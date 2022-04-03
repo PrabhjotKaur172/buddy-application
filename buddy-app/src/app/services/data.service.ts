@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class dataService {
+
+  student$ = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) { }
 
@@ -16,5 +18,11 @@ export class dataService {
 
 //     return this.http.post('/api/student/upload-profile-picture', formData);
 //   }
+
+addStudentInfo(student: any){
+  // const subject = new Subject();
+  // subject.next(student);
+  this.student$.next(student);
+}
  
 }

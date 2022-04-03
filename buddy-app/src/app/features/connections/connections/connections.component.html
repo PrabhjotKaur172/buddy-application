@@ -1,1 +1,18 @@
-<p>connections works!</p>
+<div class="row">
+    <div class="col" *ngIf="!isDisplayConnection">
+    <div class="col col-sm-12 col-md-12 col-lg-12">Students also studying in {{user.module}}.</div>
+    <div class="col col-sm-12 col-md-12 col-lg-12 div-margin">
+        <div class="display-div" *ngFor="let connection of connections" (click)="openConnectionInfo(connection)">
+            <div><img src="{{connection.image}}" alt="Upload Your Picture" class="profile-image"></div>
+            <div class="connection-name">{{connection.name}}</div>
+        </div>
+    </div>
+    </div>
+    <div *ngIf="isDisplayConnection">
+        <div class="back-btn-div"> See your connection's Profile :
+            <a type="button" class="btn btn-primary btn-css" (click)="openConnections()">Go Back to Connections</a>
+        </div>
+        <app-profile-info [profileData]="selectedConnection"></app-profile-info>
+    </div>
+</div>
+

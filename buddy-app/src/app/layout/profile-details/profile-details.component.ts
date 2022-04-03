@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { dataService } from 'src/app/services/data.service';
+import { dataService } from './../../services/data.service';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -66,6 +66,7 @@ export class ProfileDetailsComponent implements OnInit {
   SaveProfile(){
     this.profileInfoSaved = true;
     console.log('profile info saved.',this.student);
+    this.dataService.addStudentInfo(this.student);
   }
 
   
