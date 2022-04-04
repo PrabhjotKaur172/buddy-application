@@ -13,6 +13,7 @@ import { ConnectionsComponent } from './features/connections/connections/connect
 import { ProfileDetailsComponent } from './layout/profile-details/profile-details.component';
 import { ChatComponent } from './layout/chat/chat.component';
 import { ProfileInfoComponent } from './layout/profile-info/profile-info.component'
+import { CollegeNewsComponent } from './features/college-news/college-news/college-news.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ProfileInfoComponent } from './layout/profile-info/profile-info.compone
     ConnectionsComponent,
     ProfileDetailsComponent,
     ChatComponent,
-    ProfileInfoComponent
+    ProfileInfoComponent,
+    CollegeNewsComponent
   ],
   imports: [
     BrowserModule,

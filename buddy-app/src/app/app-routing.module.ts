@@ -25,6 +25,11 @@ const routes: Routes = [{
       path: 'connections',
       loadChildren: () => import('./features/connections/connections-routing.module').then(m => m.ConnectionsRoutingModule)
 
+    },
+    {
+      path: 'collegeNews',
+      loadChildren: () => import('./features/college-news/college-news-routing.module').then(m => m.CollegeNewsRoutingModule)
+
     }
   ]
 },
