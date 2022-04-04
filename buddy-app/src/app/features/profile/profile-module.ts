@@ -15,4 +15,4 @@ import { ProfileDetailsComponent } from './../../layout/profile-details/profile-
     ProfileDetailsComponent
   ]
 })
-export class HomePizzaDeliveryModule { }
+export class ProfileModule { }

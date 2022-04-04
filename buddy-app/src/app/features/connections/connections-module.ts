@@ -10,4 +10,4 @@ import { ConnectionsComponent } from './connections/connections.component';
   ],
   declarations: [ConnectionsComponent]
 })
-export class YourBuddyModule { }
+export class ConnectionsModule { }

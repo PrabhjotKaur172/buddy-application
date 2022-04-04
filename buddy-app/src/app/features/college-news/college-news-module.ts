@@ -10,4 +10,4 @@ import { CollegeNewsRoutingModule } from './college-news-routing.module';
   ],
   declarations: [CollegeNewsComponent]
 })
-export class YourBuddyModule { }
+export class CollegeNewsModule { }

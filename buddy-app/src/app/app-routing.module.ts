@@ -30,6 +30,11 @@ const routes: Routes = [{
       path: 'collegeNews',
       loadChildren: () => import('./features/college-news/college-news-routing.module').then(m => m.CollegeNewsRoutingModule)
 
+    },
+    {
+      path: 'groups',
+      loadChildren: () => import('./features/groups/groups-routing.module').then(m => m.GroupsRoutingModule)
+
     }
   ]
 },
