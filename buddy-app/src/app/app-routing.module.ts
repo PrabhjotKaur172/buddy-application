@@ -35,6 +35,11 @@ const routes: Routes = [{
       path: 'groups',
       loadChildren: () => import('./features/groups/groups-routing.module').then(m => m.GroupsRoutingModule)
 
+    },
+    {
+      path: 'queries',
+      loadChildren: () => import('./features/queries/queries-routing.module').then(m => m.QueriesRoutingModule)
+
     }
   ]
 },

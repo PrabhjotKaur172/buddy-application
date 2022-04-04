@@ -15,6 +15,7 @@ import { ChatComponent } from './layout/chat/chat.component';
 import { ProfileInfoComponent } from './layout/profile-info/profile-info.component'
 import { CollegeNewsComponent } from './features/college-news/college-news/college-news.component';
 import { GroupsComponent } from './features/groups/groups/groups.component';
+import { QueriesComponent } from './features/queries/queries/queries.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { GroupsComponent } from './features/groups/groups/groups.component';
     ChatComponent,
     ProfileInfoComponent,
     CollegeNewsComponent,
-    GroupsComponent
+    GroupsComponent,
+    QueriesComponent
   ],
   imports: [
     BrowserModule,
