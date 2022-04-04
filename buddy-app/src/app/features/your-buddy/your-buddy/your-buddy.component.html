@@ -6,4 +6,5 @@
         <div class="col col-sm-12 col-md-12 col-lg-12">Information about your buddy..</div>
     </div>
 </div>
-<app-profile-info [profileData]="buddy"></app-profile-info>
+<app-profile-info [profileData]="buddy" (displayMessageBox)="displayMessageBox($event)" *ngIf="!isMessageBoxOpened"></app-profile-info>
+<app-chat [userInfo]="buddy" (displayBuddyInfo)="displayBuddyInfo($event)" *ngIf="isMessageBoxOpened"></app-chat>

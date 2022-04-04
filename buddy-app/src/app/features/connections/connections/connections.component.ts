@@ -12,6 +12,7 @@ export class ConnectionsComponent implements OnInit {
   connections:any = [];
   isDisplayConnection: boolean = false;
   selectedConnection: any;
+  isMessageBoxOpened:boolean = false;
 
   constructor(
     private dataService : dataService
@@ -76,6 +77,14 @@ export class ConnectionsComponent implements OnInit {
 
   openConnections(){
     this.isDisplayConnection = false;
+    this.isMessageBoxOpened = false;
   }
 
+  displayBuddyInfo(event: any){
+    this.isMessageBoxOpened = event;
+  }
+
+  displayMessageBox(event: any){
+    this.isMessageBoxOpened = event;
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-profile-info',
@@ -8,8 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProfileInfoComponent implements OnInit {
 
   @Input() profileData: any;
+  @Output() displayMessageBox = new EventEmitter<string>();
 
-  isMessageBoxOpened:boolean = false;
+  isMessageBoxOpened:any = false;
 
   constructor() { }
 
@@ -19,10 +20,7 @@ export class ProfileInfoComponent implements OnInit {
 
   openMessageBox(){
     this.isMessageBoxOpened = true;
-  }
-
-  displayBuddyInfo(event: any){
-    this.isMessageBoxOpened = event;
+    this.displayMessageBox.emit(this.isMessageBoxOpened);
   }
 
 }

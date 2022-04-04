@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class YourBuddyComponent implements OnInit {
 
+  isMessageBoxOpened:boolean = false;
+
   buddy: any = {
     name : '',
     bio : '',
@@ -30,6 +32,14 @@ export class YourBuddyComponent implements OnInit {
       country : 'India',
       hobby : 'Football'
     }
+  }
+
+  displayBuddyInfo(event: any){
+    this.isMessageBoxOpened = event;
+  }
+
+  displayMessageBox(event: any){
+    this.isMessageBoxOpened = event;
   }
 
 }

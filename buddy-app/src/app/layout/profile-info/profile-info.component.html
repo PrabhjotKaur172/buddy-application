@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col col-sm-12 col-md-12 col-lg-12 div-margin" *ngIf="!isMessageBoxOpened">
+    <div class="col col-sm-12 col-md-12 col-lg-12 div-margin">
         <div><img src="{{profileData.image}}" alt="Upload Your Picture" class="profile-image"></div>
         <div class="col col-sm-6 col-md-4 col-lg-4 div-display">
             <p><b>Name</b></p>
@@ -20,9 +20,6 @@
             <p>{{profileData.hobby}}</p>
         </div>
         <div class="col"><button type="button" class="btn btn-primary" (click)="openMessageBox()">Message</button></div>
-    </div>
-    <div class="col col-sm-12 col-md-12 col-lg-12" *ngIf="isMessageBoxOpened">
-        <app-chat [userInfo]="profileData" (displayBuddyInfo)="displayBuddyInfo($event)"></app-chat>
     </div>
 </div>
 
