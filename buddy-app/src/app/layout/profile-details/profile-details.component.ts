@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { dataService } from './../../services/data.service';
 
 class ImageSnippet {
@@ -14,6 +15,7 @@ export class ProfileDetailsComponent implements OnInit {
 
   profileInfoSaved: boolean = false;
   studentImage: any;
+  pipe = new DatePipe('en-US'); // Use your own locale
 
   student: any = {
     name : '',
@@ -67,16 +69,32 @@ export class ProfileDetailsComponent implements OnInit {
   saveProfile(student:any){
     this.dataService.addStudentInfo(student).subscribe(response => {
       if (response) {
-        alert("The profile is saved successfully.");
+        alert('profile saved.');
+        this.student = response;
+        this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
+        this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
       }
     });
   }
 
+  updateProfile(student:any){
+    this.dataService.updateProfile(student).subscribe(response => {
+      if (response) {
+        alert('profile updated.');
+        this.student = response;
+        this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
+        this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
+      }
+    }); 
+  }
+
   getProfile(){
-    let studentid = 12345;
+    let studentid = 123788;
     this.dataService.getStudentInfo(studentid).subscribe(response => {
       if (response) {
-        alert("The profile is retrieved successfully.");
+        this.student = response;
+        this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
+        this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
       }
     });
   }

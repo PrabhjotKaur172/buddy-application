@@ -21,7 +21,12 @@ export class dataService {
 
 addStudentInfo(student: any){
   this.student$.next(student);
-  return this.http.post('http://localhost:5000//myProfile', student);
+  return this.http.post('http://localhost:5000//saveProfile', student);
+}
+
+updateProfile(student: any){
+  this.student$.next(student);
+  return this.http.put('http://localhost:5000//updateProfile?id='+ student.studentid, student);
 }
 
 getStudentInfo(id: any){

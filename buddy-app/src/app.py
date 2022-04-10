@@ -46,7 +46,7 @@ class userprofile(db.Model):
             'hobby': self.hobby,
             'name' : self.name,
         }
-  
+     
 # @app.route('/')
 # def index(): 
 #     return "Hello world"
@@ -56,8 +56,8 @@ class userprofile(db.Model):
 def root():
   return send_from_directory('./', 'index.html')
 
-@app.route('/myProfile', methods=['POST'])
-def myProfile():
+@app.route('/saveProfile', methods=['POST'])
+def saveProfile():
     if request.method == 'POST':
         studentids = request.json['studentid'],
         bios = request.json['bio'],
@@ -71,8 +71,8 @@ def myProfile():
         if studentids == '' or names == '' or modules == '' or countrys == '':
             return jsonify('Please enter the required fields.')
         else:
-            myProfile = userprofile(studentid=studentids,bio=bios,module=modules,startdate=startdates,enddate=enddates,country=countrys,hobby=hobbys,name=names)
-            db.session.add(myProfile)
+            saveProfile = userprofile(studentid=studentids,bio=bios,module=modules,startdate=startdates,enddate=enddates,country=countrys,hobby=hobbys,name=names)
+            db.session.add(saveProfile)
             db.session.commit()
             return jsonify(**request.json)
 
@@ -85,6 +85,35 @@ def getProfile():
                return getProfile.to_json()
         return jsonify('Profile not found. You need to fill your details.')
 
+@app.route('/updateProfile', methods=['PUT'])
+def updateProfile():
+    if request.method == 'PUT':
+        studentids = request.args['id']
+        getProfile = userprofile.query.filter_by(studentid=studentids).first()
+
+        if 'bio' in request.json:
+             getProfile.bio = request.json['bio']
+
+        if 'module' in request.json:
+             getProfile.module = request.json['module']
+
+        if 'startdate' in request.json:
+             getProfile.startdate = request.json['startdate']
+
+        if 'enddate' in request.json:
+             getProfile.enddate = request.json['enddate']
+
+        if 'country' in request.json:
+             getProfile.country = request.json['country']
+
+        if 'hobby' in request.json:
+             getProfile.hobby = request.json['hobby']
+          
+        if 'name' in request.json:
+             getProfile.name = request.json['name']
+        
+        db.session.commit()
+        return getProfile.to_json()
 
 @app.route('/<path:path>')
 def static_proxy(path):
