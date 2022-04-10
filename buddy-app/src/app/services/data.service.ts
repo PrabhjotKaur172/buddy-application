@@ -20,9 +20,12 @@ export class dataService {
 //   }
 
 addStudentInfo(student: any){
-  // const subject = new Subject();
-  // subject.next(student);
   this.student$.next(student);
+  return this.http.post('http://localhost:5000//myProfile', student);
+}
+
+getStudentInfo(id: any){
+  return this.http.get('http://localhost:5000//getProfile?id='+ id);
 }
  
 }

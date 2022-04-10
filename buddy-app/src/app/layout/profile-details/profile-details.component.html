@@ -14,9 +14,9 @@
         </div>
     
         <div class="form-group form-div-margin">
-            <label for="studentId">Student Id</label>
-            <input type="number" class="form-control input-width" id="studentId"
-                required [(ngModel)]="student.studentId" name="studentId">
+            <label for="studentid">Student Id</label>
+            <input type="number" class="form-control input-width" id="studentid"
+                required [(ngModel)]="student.studentid" name="studentid">
         </div>
     
         <div class="form-group form-div-margin">
@@ -35,15 +35,15 @@
     </div>
     <div class="col col-sm-12 col-md-6 col-lg-6">
         <div class="form-group form-div-margin">
-            <label for="startDate">Course/Module Start Date</label>
-            <input type="date" class="form-control input-width" id="startDate"
-                required [(ngModel)]="student.startDate" name="startDate">
+            <label for="startdate">Course/Module Start Date</label>
+            <input type="date" class="form-control input-width" id="startdate"
+                required [(ngModel)]="student.startdate" name="startdate">
         </div>
     
         <div class="form-group form-div-margin">
-            <label for="naendDateme">Course/Module End Date</label>
-            <input type="date" class="form-control input-width" id="endDate"
-                required [(ngModel)]="student.endDate" name="endDate">
+            <label for="naenddateme">Course/Module End Date</label>
+            <input type="date" class="form-control input-width" id="enddate"
+                required [(ngModel)]="student.enddate" name="enddate">
         </div>
     
         <div class="form-group form-div-margin">
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div>
-        <button type="button" class="btn btn-primary" (click)="SaveProfile()">Save Profile</button>
+        <button type="button" class="btn btn-primary" (click)="saveProfile(student)">Save Profile</button>
         <p *ngIf="profileInfoSaved" class="text-success success-message-css">Your Profile is saved successfully!</p>
     </div>
 </div>

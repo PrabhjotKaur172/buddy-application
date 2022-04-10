@@ -17,11 +17,11 @@ export class ProfileDetailsComponent implements OnInit {
 
   student: any = {
     name : '',
-    studentId : null,
+    studentid : null,
     bio : '',
     module : '',
-    startDate : null,
-    endDate : null,
+    startdate : null,
+    enddate : null,
     country : '',
     hobby : ''
   }
@@ -61,14 +61,25 @@ export class ProfileDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getProfile();
   }
 
-  SaveProfile(){
-    this.profileInfoSaved = true;
-    console.log('profile info saved.',this.student);
-    this.dataService.addStudentInfo(this.student);
+  saveProfile(student:any){
+    this.dataService.addStudentInfo(student).subscribe(response => {
+      if (response) {
+        alert("The profile is saved successfully.");
+      }
+    });
   }
 
+  getProfile(){
+    let studentid = 12345;
+    this.dataService.getStudentInfo(studentid).subscribe(response => {
+      if (response) {
+        alert("The profile is retrieved successfully.");
+      }
+    });
+  }
   
   processProfileImage(profileImage: any) {
     const file: File = profileImage.files[0];
