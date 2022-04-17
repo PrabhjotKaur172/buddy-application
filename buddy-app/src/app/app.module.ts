@@ -40,7 +40,9 @@ import { QueriesComponent } from './features/queries/queries/queries.component';
     FormsModule,
     NgxUiLoaderModule
   ],
-  providers: [],
+  providers: [
+    ProfileDetailsComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

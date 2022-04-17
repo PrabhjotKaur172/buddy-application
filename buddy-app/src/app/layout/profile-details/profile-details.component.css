@@ -28,3 +28,8 @@
 .margin-left-20{
     margin-left: 20px !important;
 }
+
+.text-blue{
+    color: blue;
+    cursor: pointer;
+}

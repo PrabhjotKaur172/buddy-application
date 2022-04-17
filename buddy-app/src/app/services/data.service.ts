@@ -36,5 +36,13 @@ getStudentInfo(id: any){
 updateStudentInfo(student: any){
   this.student$.next(student);
 }
+
+getUnassignedBuddies(){
+  return this.http.get('http://localhost:5000//getUnassignedBuddys');
+}
+
+getYourAssignedBuddy(id: any){
+  return this.http.get('http://localhost:5000//getYourAssignedBuddy?id='+ id);
+}
  
 }

@@ -17,7 +17,7 @@ export class ProfileDetailsComponent implements OnInit {
   profileInfoSaved: boolean = false;
   studentImage: any;
   pipe = new DatePipe('en-US'); // Use your own locale
-  studentAssgined: any;
+  studentNotAssgined: any;
 
   student: any = {
     name : null,
@@ -70,14 +70,13 @@ export class ProfileDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfile();
-    this.studentAssgined = "Not Yet Assigned"
+    this.studentNotAssgined = "Not Yet Assigned";
   }
 
   saveProfile(student:any){
     this.ngxService.startLoader("loader-get-profile"); 
     this.dataService.addStudentInfo(student).subscribe(response => {
       if (response) {
-        alert('profile saved.');
         this.student = response;
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
@@ -87,11 +86,16 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   updateProfile(student:any,status: any){
-    student.isbuddy = status === 'yesBuddy' ? true : false;
+    if(status === 'yesBuddy'){
+      student.isbuddy = true;
+    }
+    if(student.studentassignedid == null && student.studentassignedname == null){
+       student.studentassignedid = null;
+       student.studentassignedname = '';
+    }
     this.ngxService.startLoader("loader-get-profile"); 
     this.dataService.updateProfile(student).subscribe(response => {
       if (response) {
-        alert('profile updated.');
         this.student = response;
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
@@ -101,16 +105,19 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   getProfile(){
-    let studentid = 1;
+    let studentid = 3;
     this.ngxService.startLoader("loader-get-profile"); 
     this.dataService.getStudentInfo(studentid).subscribe(response => {
-      if (response) {
+      let finalResponse = response;
+      if (finalResponse !== "Profile not found.") {
         this.student = response;
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
-        this.ngxService.stopLoader("loader-get-profile");
         this.dataService.updateStudentInfo(this.student);
+      } else {
+        alert("Profile not found using student id " + studentid);
       }
+      this.ngxService.stopLoader("loader-get-profile");
     });
   }
   

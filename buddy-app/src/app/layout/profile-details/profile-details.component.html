@@ -86,7 +86,7 @@
         </div>
     </div>
     <div class="form-group form-div-margin">
-        <label for="name"><b>Student assigned : {{studentAssgined}}</b></label>
+        <label for="name"><b>Student assigned :</b> <span class="text-blue"><u>{{student.studentassignedname || studentNotAssgined}}</u></span></label>
     </div>
 </div>
 <ngx-ui-loader [loaderId]="'loader-get-profile'"></ngx-ui-loader>

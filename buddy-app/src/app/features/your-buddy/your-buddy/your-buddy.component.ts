@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
+import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ProfileDetailsComponent } from 'src/app/layout/profile-details/profile-details.component';
 
 @Component({
   selector: 'app-your-buddy',
@@ -10,36 +12,51 @@ export class YourBuddyComponent implements OnInit {
 
   isMessageBoxOpened:boolean = false;
   user:any;
+  unassignedBuddies: any;
+  filteredBuddy: any;
+  buddyAssigned: boolean = false;
 
   buddy: any = {
-    name : '',
-    bio : '',
-    module : '',
-    moduleStartDate : null,
-    moduleEndDate : null,
-    country : '',
-    hobby : ''
+    name : null,
+    studentid : null,
+    bio : null,
+    module : null,
+    startdate : null,
+    enddate : null,
+    country : null,
+    hobby : null,
+    isbuddy : false,
+    studentassignedname : null,
+    studentassignedid : null
   }
 
   constructor(
-    private dataService : dataService
+    private dataService : dataService,
+    private ngxService: NgxUiLoaderService,
+    private profileDetailComponent : ProfileDetailsComponent
   ) { }
 
   ngOnInit(): void {
     this.buddy = {};
     this.dataService.student$.subscribe(user => {
       this.user = user;
+      if(this.user){
+        this.checkBuddyAssignedOrNot();
+      }
     });
-    // this.buddy = {
-    //   image : './../../../assets/images/profile-picture.jpg',
-    //   name : 'Ankit Khule',
-    //   bio : 'I have completed my Masters in Business Analytics with 1:1 score in January 2022.',
-    //   module : 'Msc in Business Analytics',
-    //   moduleStartDate : '25-01-2021',
-    //   moduleEndDate : '30-01-2022',
-    //   country : 'India',
-    //   hobby : 'Football'
-    // }
+  }
+
+  checkBuddyAssignedOrNot(){
+    this.ngxService.startLoader("loader-get-buddies");
+    this.dataService.getYourAssignedBuddy(this.user.studentid).subscribe(response => {
+      if (response !== "Profile not found.") {
+        this.buddy = response;
+        this.buddyAssigned = true;
+      } else {
+        this.buddyAssigned = false;
+      }
+      this.ngxService.stopLoader("loader-get-buddies");
+    });
   }
 
   displayBuddyInfo(event: any){
@@ -50,8 +67,50 @@ export class YourBuddyComponent implements OnInit {
     this.isMessageBoxOpened = event;
   }
 
+  findBestBuddy(buddies: any){
+    if(buddies.length > 0){
+      this.filteredBuddy = buddies.filter( (b: any) => b.module === this.user.module && b.country === this.user.country && b.hobby === this.user.hobby);
+      if(this.filteredBuddy.length > 0){
+        return this.filteredBuddy[0];
+      }
+      if(this.filteredBuddy.length === 0){
+        this.filteredBuddy = buddies.filter( (b: any) => b.module === this.user.module && b.country === this.user.country);
+        if(this.filteredBuddy.length > 0){
+          return this.filteredBuddy[0];
+        }
+        if(this.filteredBuddy.length === 0){
+          this.filteredBuddy = buddies.filter( (b: any) => b.module === this.user.module && b.hobby === this.user.hobby);
+          if(this.filteredBuddy.length > 0){
+            return this.filteredBuddy[0];
+          }
+          if(this.filteredBuddy.length === 0){
+           this.filteredBuddy = buddies.filter( (b: any) => b.module === this.user.module);
+           if(this.filteredBuddy.length > 0){
+            return this.filteredBuddy[0];
+          }
+          }
+        }
+      }
+    }
+  }
+
   assignBuddy(){
-    alert('testing');
+    this.ngxService.startLoader("loader-get-buddies"); 
+    this.dataService.getUnassignedBuddies().subscribe(response => {
+      let res: any = response;
+      if (res.length > 0) {
+        this.unassignedBuddies = response;
+        this.buddy = this.findBestBuddy(this.unassignedBuddies);
+        this.buddy.studentassignedid = this.user.studentid;
+        this.buddy.studentassignedname = this.user.name;
+        this.profileDetailComponent.updateProfile(this.buddy,'buddyUpdated');
+        this.buddyAssigned = true;
+        this.ngxService.stopLoader("loader-get-buddies");
+      } else {
+        alert('No Buddy found for you. We will keep you updated soon on this page.');
+        this.ngxService.stopLoader("loader-get-buddies");
+      }
+    });
   }
 
 }

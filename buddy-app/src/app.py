@@ -24,7 +24,7 @@ class userprofile(db.Model):
     country = db.Column(db.String, nullable = False)
     hobby = db.Column(db.String)
     name = db.Column(db.String, nullable = False)
-    isbuddy = db.Column(db.Boolean)
+    isbuddy = db.Column(db.String)
     studentassignedname = db.Column(db.String)
     studentassignedid = db.Column(db.Integer)
 
@@ -140,6 +140,15 @@ def getUnassignedBuddys():
         getUnassignedBuddys = userprofile.query.filter_by(isbuddy='True' , studentassignedid = None).all()
         return jsonify([i.to_json() for i in getUnassignedBuddys])  
     return jsonify('No Buddy found.')
+
+@app.route('/getYourAssignedBuddy', methods=['GET'])
+def getYourAssignedBuddy():
+    if request.method == 'GET':
+        studentids = request.args['id']
+        getYourAssignedBuddy = userprofile.query.filter_by(studentassignedid=studentids).first()
+        if getYourAssignedBuddy:
+               return getYourAssignedBuddy.to_json()
+        return jsonify('Profile not found.')
 
 @app.route('/<path:path>')
 def static_proxy(path):
