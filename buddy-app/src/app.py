@@ -24,8 +24,11 @@ class userprofile(db.Model):
     country = db.Column(db.String, nullable = False)
     hobby = db.Column(db.String)
     name = db.Column(db.String, nullable = False)
+    isbuddy = db.Column(db.Boolean)
+    studentassignedname = db.Column(db.String)
+    studentassignedid = db.Column(db.Integer)
 
-    def __init__(self,studentid,bio,module,startdate,enddate,country,hobby,name):
+    def __init__(self,studentid,bio,module,startdate,enddate,country,hobby,name,isbuddy,studentassignedname,studentassignedid):
         self.studentid = studentid
         self.bio = bio
         self.module = module
@@ -34,23 +37,27 @@ class userprofile(db.Model):
         self.country = country
         self.hobby = hobby
         self.name = name
+        self.isbuddy = isbuddy
+        self.studentassignedname = studentassignedname
+        self.studentassignedid = studentassignedid
+    
+ 
 
     def to_json(self):
         return {
             'studentid': self.studentid,
             'bio': self.bio,
             'module': self.module,
-            'startdate': self.startdate,
-            'enddate': self.enddate,
+            'startdate': self.startdate.strftime("%Y-%m-%d"),
+            'enddate': self.startdate.strftime("%Y-%m-%d"),
             'country': self.country,
             'hobby': self.hobby,
             'name' : self.name,
+            'isbuddy' : self.isbuddy,
+            'studentassignedname' : self.studentassignedname,
+            'studentassignedid' : self.studentassignedid
         }
      
-# @app.route('/')
-# def index(): 
-#     return "Hello world"
-#     # return app.send_static_file('index.html')
 
 @app.route('/')
 def root():
@@ -66,12 +73,15 @@ def saveProfile():
         enddates = request.json['enddate'],
         countrys = request.json['country'],
         hobbys = request.json['hobby'],
-        names = request.json['name']
+        names = request.json['name'],
+        isbuddys = request.json['isbuddy'],
+        studentassignednames = request.json['studentassignedname'],
+        studentassignedids = request.json['studentassignedid']
 
         if studentids == '' or names == '' or modules == '' or countrys == '':
             return jsonify('Please enter the required fields.')
         else:
-            saveProfile = userprofile(studentid=studentids,bio=bios,module=modules,startdate=startdates,enddate=enddates,country=countrys,hobby=hobbys,name=names)
+            saveProfile = userprofile(studentid=studentids,bio=bios,module=modules,startdate=startdates,enddate=enddates,country=countrys,hobby=hobbys,name=names,isbuddy=isbuddys,studentassignedname=studentassignednames,studentassignedid=studentassignedids)
             db.session.add(saveProfile)
             db.session.commit()
             return jsonify(**request.json)
@@ -83,7 +93,7 @@ def getProfile():
         getProfile = userprofile.query.filter_by(studentid=studentids).first()
         if getProfile:
                return getProfile.to_json()
-        return jsonify('Profile not found. You need to fill your details.')
+        return jsonify('Profile not found.')
 
 @app.route('/updateProfile', methods=['PUT'])
 def updateProfile():
@@ -111,9 +121,25 @@ def updateProfile():
           
         if 'name' in request.json:
              getProfile.name = request.json['name']
+
+        if 'isbuddy' in request.json:
+             getProfile.isbuddy = request.json['isbuddy']
+
+        if 'studentassignedname' in request.json:
+             getProfile.studentassignedname = request.json['studentassignedname']
+          
+        if 'studentassignedid' in request.json:
+             getProfile.studentassignedid = request.json['studentassignedid']
         
         db.session.commit()
         return getProfile.to_json()
+
+@app.route('/getUnassignedBuddys', methods=['GET'])
+def getUnassignedBuddys():
+    if request.method == 'GET':
+        getUnassignedBuddys = userprofile.query.filter_by(isbuddy='True' , studentassignedid = None).all()
+        return jsonify([i.to_json() for i in getUnassignedBuddys])  
+    return jsonify('No Buddy found.')
 
 @app.route('/<path:path>')
 def static_proxy(path):

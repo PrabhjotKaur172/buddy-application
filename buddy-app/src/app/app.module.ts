@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { CommonComponentsModule } from './common/common-components.module';
+import { NgxUiLoaderModule } from "ngx-ui-loader";
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -36,7 +37,8 @@ import { QueriesComponent } from './features/queries/queries/queries.component';
     AppRoutingModule,
     HttpClientModule,
     CommonComponentsModule,
-    FormsModule
+    FormsModule,
+    NgxUiLoaderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

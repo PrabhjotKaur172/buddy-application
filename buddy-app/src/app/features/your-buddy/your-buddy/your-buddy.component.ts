@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { dataService } from './../../../services/data.service';
 
 @Component({
   selector: 'app-your-buddy',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class YourBuddyComponent implements OnInit {
 
   isMessageBoxOpened:boolean = false;
+  user:any;
 
   buddy: any = {
     name : '',
@@ -19,19 +21,25 @@ export class YourBuddyComponent implements OnInit {
     hobby : ''
   }
 
-  constructor() { }
+  constructor(
+    private dataService : dataService
+  ) { }
 
   ngOnInit(): void {
-    this.buddy = {
-      image : './../../../assets/images/profile-picture.jpg',
-      name : 'Ankit Khule',
-      bio : 'I have completed my Masters in Business Analytics with 1:1 score in January 2022.',
-      module : 'Msc in Business Analytics',
-      moduleStartDate : '25-01-2021',
-      moduleEndDate : '30-01-2022',
-      country : 'India',
-      hobby : 'Football'
-    }
+    this.buddy = {};
+    this.dataService.student$.subscribe(user => {
+      this.user = user;
+    });
+    // this.buddy = {
+    //   image : './../../../assets/images/profile-picture.jpg',
+    //   name : 'Ankit Khule',
+    //   bio : 'I have completed my Masters in Business Analytics with 1:1 score in January 2022.',
+    //   module : 'Msc in Business Analytics',
+    //   moduleStartDate : '25-01-2021',
+    //   moduleEndDate : '30-01-2022',
+    //   country : 'India',
+    //   hobby : 'Football'
+    // }
   }
 
   displayBuddyInfo(event: any){
@@ -40,6 +48,10 @@ export class YourBuddyComponent implements OnInit {
 
   displayMessageBox(event: any){
     this.isMessageBoxOpened = event;
+  }
+
+  assignBuddy(){
+    alert('testing');
   }
 
 }

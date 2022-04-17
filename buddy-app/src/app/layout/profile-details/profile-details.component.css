@@ -6,6 +6,10 @@
     margin-bottom: 20px;
 }
 
+.margin-top{
+    margin-top: 40px;
+}
+
 .text-success{
     color: rgb(10, 82, 10);
 }

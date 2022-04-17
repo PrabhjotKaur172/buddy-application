@@ -32,5 +32,9 @@ updateProfile(student: any){
 getStudentInfo(id: any){
   return this.http.get('http://localhost:5000//getProfile?id='+ id);
 }
+
+updateStudentInfo(student: any){
+  this.student$.next(student);
+}
  
 }
