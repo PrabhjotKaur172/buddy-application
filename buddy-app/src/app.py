@@ -49,7 +49,7 @@ class userprofile(db.Model):
             'bio': self.bio,
             'module': self.module,
             'startdate': self.startdate.strftime("%Y-%m-%d"),
-            'enddate': self.startdate.strftime("%Y-%m-%d"),
+            'enddate': self.enddate.strftime("%Y-%m-%d"),
             'country': self.country,
             'hobby': self.hobby,
             'name' : self.name,
@@ -149,6 +149,15 @@ def getYourAssignedBuddy():
         if getYourAssignedBuddy:
                return getYourAssignedBuddy.to_json()
         return jsonify('Profile not found.')
+
+@app.route('/getConnections', methods=['GET'])
+def getConnections():
+    if request.method == 'GET':
+        modules = request.args['module']
+        startdates = request.args['startdate']
+        getConnections = userprofile.query.filter_by(module=modules , startdate = startdates).all()
+        return jsonify([i.to_json() for i in getConnections])  
+    return jsonify('No Buddy found.')
 
 @app.route('/<path:path>')
 def static_proxy(path):

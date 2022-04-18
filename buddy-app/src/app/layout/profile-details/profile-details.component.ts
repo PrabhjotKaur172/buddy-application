@@ -105,7 +105,7 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   getProfile(){
-    let studentid = 3;
+    let studentid = 17;
     this.ngxService.startLoader("loader-get-profile"); 
     this.dataService.getStudentInfo(studentid).subscribe(response => {
       let finalResponse = response;

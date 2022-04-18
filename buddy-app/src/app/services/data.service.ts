@@ -44,5 +44,9 @@ getUnassignedBuddies(){
 getYourAssignedBuddy(id: any){
   return this.http.get('http://localhost:5000//getYourAssignedBuddy?id='+ id);
 }
+
+getConnections(student: any){
+  return this.http.get('http://localhost:5000//getConnections?module=' + student.module +'&startdate=' + student.startdate);
+}
  
 }
