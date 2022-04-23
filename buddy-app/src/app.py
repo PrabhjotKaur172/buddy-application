@@ -58,6 +58,27 @@ class userprofile(db.Model):
             'studentassignedid' : self.studentassignedid
         }
      
+class college_news(db.Model):
+    __tablename__ = 'college_news'
+    news_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    heading = db.Column(db.String)
+    content = db.Column(db.String)
+    author = db.Column(db.String)
+    dateofnews = db.Column(db.Date)
+
+    def __init__(self,heading,content,author,dateofnews):
+        self.heading = heading
+        self.content = content
+        self.author = author
+        self.dateofnews = dateofnews
+    
+    def to_json(self):
+        return {
+            'heading': self.heading,
+            'content': self.content,
+            'author': self.author,
+            'dateofnews': self.dateofnews.strftime("%Y-%m-%d")
+        }
 
 @app.route('/')
 def root():
@@ -158,6 +179,30 @@ def getConnections():
         getConnections = userprofile.query.filter_by(module=modules , startdate = startdates).all()
         return jsonify([i.to_json() for i in getConnections])  
     return jsonify('No Buddy found.')
+
+@app.route('/getCollegeNews', methods=['GET'])
+def getCollegeNews():
+    if request.method == 'GET':
+        getCollegeNews = college_news.query.filter_by().all()
+        return jsonify([i.to_json() for i in getCollegeNews])  
+    return jsonify('No college news found.')
+
+
+@app.route('/postCollegeNews', methods=['POST'])
+def postCollegeNews():
+    if request.method == 'POST':
+        headings = request.json['heading'],
+        contents = request.json['content'],
+        authors = request.json['author'],
+        newsdates = request.json['dateofnews']
+
+        if headings == '' or contents == '' or authors == '' or newsdates == '':
+            return jsonify('Please enter the required fields.')
+        else:
+            postCollegeNews = college_news(heading=headings,content=contents,author=authors,dateofnews=newsdates)
+            db.session.add(postCollegeNews)
+            db.session.commit()
+            return jsonify(**request.json)
 
 @app.route('/<path:path>')
 def static_proxy(path):
