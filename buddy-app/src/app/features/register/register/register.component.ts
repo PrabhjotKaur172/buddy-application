@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private router: Router
   ) { 
     this.isRegisterPageOpen = true;
   }
@@ -33,6 +35,7 @@ export class RegisterComponent implements OnInit {
       if (response) {
         alert("User has been registered successfully.");
         this.ngxService.stopLoader("loader-register-newuser");
+        this.router.navigate(['/login']);
       }
     });
   }
