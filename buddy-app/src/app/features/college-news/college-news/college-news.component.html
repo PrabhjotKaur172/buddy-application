@@ -1,11 +1,14 @@
+<div style="position: relative">
 <div class="card card-margin" *ngFor="let news of collegeNews">
     <div class="card-header">
       <b>{{news.heading}}</b><br>
-      by {{news.author}} - {{news.day}}, {{news.date}}, {{news.time}}
+      by {{news.author}} - {{news.day}}, {{news.dateofnews}}, {{news.time}}
     </div>
     <div class="card-body">
       <h5 class="card-title"></h5>
       <p class="card-text">{{news.content}}</p>
       <a href="#" class="btn btn-primary">Click here</a> to get more info.
     </div>
+</div>
+<ngx-ui-loader [loaderId]="'loader-get-collegenews'"></ngx-ui-loader>
 </div>

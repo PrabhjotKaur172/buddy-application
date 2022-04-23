@@ -48,5 +48,9 @@ getYourAssignedBuddy(id: any){
 getConnections(student: any){
   return this.http.get('http://localhost:5000//getConnections?module=' + student.module +'&startdate=' + student.startdate);
 }
+
+getCollegeNews(){
+  return this.http.get('http://localhost:5000//getCollegeNews');
+}
  
 }

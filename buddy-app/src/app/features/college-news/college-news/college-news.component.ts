@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { dataService } from './../../../services/data.service';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'app-college-news',
@@ -16,35 +18,24 @@ export class CollegeNewsComponent implements OnInit {
     content : ''
   }];
 
-  constructor() { }
+  constructor(
+    private dataService : dataService,
+    private ngxService: NgxUiLoaderService
+  ) { }
 
   ngOnInit(): void {
-    this.collegeNews = [
-      {
-        heading : 'Castle House - Re-Opened tomorrow 4th March',
-        author : 'John Doe',
-        date : '3 March 2022', 
-        day : 'Thursday',
-        time : '6:02 PM',
-        content : 'Castle House will re-open tomorrow morning 4th March after a fire in an adjacent building this afternoon. All classes due on campus in Castle House will take place as normal. Thank you for your patience.'
-      },
-      {
-        heading : 'Castle House - Re-Opened tomorrow 4th March',
-        author : 'John Doe',
-        date : '3 March 2022', 
-        day : 'Thursday',
-        time : '6:02 PM',
-        content : 'Castle House will re-open tomorrow morning 4th March after a fire in an adjacent building this afternoon. All classes due on campus in Castle House will take place as normal. Thank you for your patience.'
-      },
-      {
-        heading : 'Castle House - Re-Opened tomorrow 4th March',
-        author : 'John Doe',
-        date : '3 March 2022', 
-        day : 'Thursday',
-        time : '6:02 PM',
-        content : 'Castle House will re-open tomorrow morning 4th March after a fire in an adjacent building this afternoon. All classes due on campus in Castle House will take place as normal. Thank you for your patience.'
-      }
-  ]
+  this.getCollegeNews();
+  }
+
+  getCollegeNews(){
+     this.ngxService.startLoader("loader-get-collegenews"); 
+     this.dataService.getCollegeNews().subscribe( response => {
+        this.collegeNews = response;
+        // this.collegeNews.forEach((news:any) => {
+        //   news.day = news.dateofnews.getDay();
+        // });
+        this.ngxService.stopLoader("loader-get-collegenews"); 
+     })
   }
 
 }

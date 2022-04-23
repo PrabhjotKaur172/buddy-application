@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { dataService } from './../../../services/data.service';
+import { NgxUiLoaderService } from "ngx-ui-loader";
 
 @Component({
   selector: 'app-connections',
@@ -15,7 +16,8 @@ export class ConnectionsComponent implements OnInit {
   isMessageBoxOpened:boolean = false;
 
   constructor(
-    private dataService : dataService
+    private dataService : dataService,
+    private ngxService: NgxUiLoaderService
   ) { }
 
   ngOnInit(): void {
@@ -26,9 +28,11 @@ export class ConnectionsComponent implements OnInit {
   }
 
   getConnections(){
+    this.ngxService.startLoader("loader-get-connections"); 
     this.dataService.getConnections(this.user).subscribe(response => {
        this.connections = response;
        this.connections = this.connections.filter((item:any) => item.studentid !== this.user.studentid);
+       this.ngxService.stopLoader("loader-get-connections");
     })
   }
 
