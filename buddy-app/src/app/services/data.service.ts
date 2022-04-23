@@ -52,5 +52,9 @@ getConnections(student: any){
 getCollegeNews(){
   return this.http.get('http://localhost:5000//getCollegeNews');
 }
+
+postNews(news: any){
+  return this.http.post('http://localhost:5000//postCollegeNews', news);
+}
  
 }

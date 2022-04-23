@@ -17,6 +17,7 @@ import { ProfileInfoComponent } from './layout/profile-info/profile-info.compone
 import { CollegeNewsComponent } from './features/college-news/college-news/college-news.component';
 import { GroupsComponent } from './features/groups/groups/groups.component';
 import { QueriesComponent } from './features/queries/queries/queries.component';
+import { AdminComponent } from './features/admin/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { QueriesComponent } from './features/queries/queries/queries.component';
     ProfileInfoComponent,
     CollegeNewsComponent,
     GroupsComponent,
-    QueriesComponent
+    QueriesComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

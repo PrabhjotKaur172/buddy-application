@@ -40,6 +40,11 @@ const routes: Routes = [{
       path: 'queries',
       loadChildren: () => import('./features/queries/queries-routing.module').then(m => m.QueriesRoutingModule)
 
+    },
+    {
+      path: 'admin',
+      loadChildren: () => import('./features/admin/admin-routing.module').then(m => m.AdminRoutingModule)
+
     }
   ]
 },
