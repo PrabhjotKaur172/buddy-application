@@ -123,6 +123,20 @@ def register():
                        db.session.commit()
                        return jsonify('You have registered successfully.')
 
+@app.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        emailid = request.json['email'],
+        passw = request.json['password']
+
+        if emailid == '' or passw == '':
+            return jsonify('Please enter the required fields.')
+        else:
+            user = user_registertable.query.filter_by(email=emailid,password=passw).first()
+            if user:
+                return jsonify('You are login successfully!')
+            return jsonify('User not found. You need to register first.')
+
 @app.route('/saveProfile', methods=['POST'])
 def saveProfile():
     if request.method == 'POST':

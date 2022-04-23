@@ -50,6 +50,11 @@ const routes: Routes = [{
       path: 'register',
       loadChildren: () => import('./features/register/register-routing.module').then(m => m.RegisterRoutingModule)
 
+    },
+    {
+      path: 'login',
+      loadChildren: () => import('./features/login/login-routing.module').then(m => m.LoginRoutingModule)
+
     }
   ]
 },

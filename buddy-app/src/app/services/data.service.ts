@@ -60,5 +60,9 @@ postNews(news: any){
 registerNewUser(user: any){
   return this.http.post('http://localhost:5000//register', user);
 }
+
+loginUser(user: any){
+  return this.http.post('http://localhost:5000//login', user);
+}
  
 }

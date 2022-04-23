@@ -1,0 +1,29 @@
+<section>
+    <div class="container margin-top margin-bottom">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-8 col-xl-6">
+          <div class="row">
+            <div class="col text-center">
+              <h1>Login Here</h1>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col mt-4">
+              <input type="text" class="form-control" placeholder="User Email" [(ngModel)]="user.email">
+            </div>
+          </div>
+          <div class="row align-items-center mt-4">
+            <div class="col">
+              <input type="password" class="form-control" placeholder="User Password" [(ngModel)]="user.password">
+            </div>
+          </div>
+          <div class="row justify-content-start mt-4">
+            <div class="col">
+              <button class="btn btn-primary mt-4" (click)="loginUser(user)">Login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ngx-ui-loader [loaderId]="'loader-login-user'"></ngx-ui-loader>
+  </section>
