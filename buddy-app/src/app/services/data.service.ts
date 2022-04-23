@@ -56,5 +56,9 @@ getCollegeNews(){
 postNews(news: any){
   return this.http.post('http://localhost:5000//postCollegeNews', news);
 }
+
+registerNewUser(user: any){
+  return this.http.post('http://localhost:5000//register', user);
+}
  
 }

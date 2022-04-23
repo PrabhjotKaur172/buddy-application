@@ -18,6 +18,8 @@ import { CollegeNewsComponent } from './features/college-news/college-news/colle
 import { GroupsComponent } from './features/groups/groups/groups.component';
 import { QueriesComponent } from './features/queries/queries/queries.component';
 import { AdminComponent } from './features/admin/admin/admin.component';
+import { LoginComponent } from './features/login/login.component';
+import { RegisterComponent } from './features/register/register/register.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { AdminComponent } from './features/admin/admin/admin.component';
     CollegeNewsComponent,
     GroupsComponent,
     QueriesComponent,
-    AdminComponent
+    AdminComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

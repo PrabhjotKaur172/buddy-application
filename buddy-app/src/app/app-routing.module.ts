@@ -45,6 +45,11 @@ const routes: Routes = [{
       path: 'admin',
       loadChildren: () => import('./features/admin/admin-routing.module').then(m => m.AdminRoutingModule)
 
+    },
+    {
+      path: 'register',
+      loadChildren: () => import('./features/register/register-routing.module').then(m => m.RegisterRoutingModule)
+
     }
   ]
 },

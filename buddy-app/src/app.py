@@ -14,6 +14,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+class user_registertable(db.Model):
+    __tablename__ = 'user_registertable'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String)
+    email = db.Column(db.String,unique=True)
+    password = db.Column(db.String)
+
+    def __init__(self,id,username,email,password):
+        self.id = id
+        self.username = username
+        self.email = email
+        self.password = password
+    def to_json(self):
+        return {
+            'email': self.email,
+            'username': self.username
+        }
+
 class userprofile(db.Model):
     __tablename__ = 'userprofile'
     studentid = db.Column(db.Integer, primary_key=True)
@@ -83,6 +101,27 @@ class college_news(db.Model):
 @app.route('/')
 def root():
   return send_from_directory('./', 'index.html')
+
+@app.route('/register', methods=['POST'])
+def register():
+    if request.method == 'POST':
+        userid = request.json['id'],
+        uname = request.json['username'],
+        useremail = request.json['email'],
+        userpassword = request.json['password']
+
+        if userid == '' or useremail == '' or uname == '' or userpassword == '':
+            return jsonify('Please enter required fields')
+        else:
+             if userid != '' and useremail != '' and uname != '' and userpassword != '':
+                  getUser = user_registertable.query.filter_by(id=userid).first()
+                  if getUser:
+                       return jsonify('You are already registered with this student id.')
+                  else:
+                       data = user_registertable(id=userid,email=useremail,username=uname,password=userpassword)
+                       db.session.add(data)
+                       db.session.commit()
+                       return jsonify('You have registered successfully.')
 
 @app.route('/saveProfile', methods=['POST'])
 def saveProfile():
@@ -186,7 +225,6 @@ def getCollegeNews():
         getCollegeNews = college_news.query.filter_by().all()
         return jsonify([i.to_json() for i in getCollegeNews])  
     return jsonify('No college news found.')
-
 
 @app.route('/postCollegeNews', methods=['POST'])
 def postCollegeNews():
