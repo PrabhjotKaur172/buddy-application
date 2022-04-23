@@ -18,6 +18,7 @@ export class ProfileDetailsComponent implements OnInit {
   studentImage: any;
   pipe = new DatePipe('en-US'); // Use your own locale
   studentNotAssgined: any;
+  studentId: any;
 
   student: any = {
     name : null,
@@ -66,7 +67,12 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService
-  ) { }
+  ) { 
+    this.dataService.userInfo$.subscribe(userData => {
+      let data: any = userData;
+      this.studentId = data.id;
+    });
+  }
 
   ngOnInit(): void {
     this.getProfile();
@@ -105,9 +111,8 @@ export class ProfileDetailsComponent implements OnInit {
   }
 
   getProfile(){
-    let studentid = 17;
     this.ngxService.startLoader("loader-get-profile"); 
-    this.dataService.getStudentInfo(studentid).subscribe(response => {
+    this.dataService.getStudentInfo(this.studentId).subscribe(response => {
       let finalResponse = response;
       if (finalResponse !== "Profile not found.") {
         this.student = response;
@@ -115,7 +120,7 @@ export class ProfileDetailsComponent implements OnInit {
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
         this.dataService.updateStudentInfo(this.student);
       } else {
-        alert("Profile not found using student id " + studentid);
+        alert("Profile not found using student id " + this.studentId);
       }
       this.ngxService.stopLoader("loader-get-profile");
     });

@@ -29,7 +29,8 @@ class user_registertable(db.Model):
     def to_json(self):
         return {
             'email': self.email,
-            'username': self.username
+            'username': self.username,
+            'id' : self.id
         }
 
 class userprofile(db.Model):
@@ -128,13 +129,13 @@ def login():
     if request.method == 'POST':
         emailid = request.json['email'],
         passw = request.json['password']
-
+        
         if emailid == '' or passw == '':
             return jsonify('Please enter the required fields.')
         else:
             user = user_registertable.query.filter_by(email=emailid,password=passw).first()
             if user:
-                return jsonify('You are login successfully!')
+                return user.to_json()
             return jsonify('User not found. You need to register first.')
 
 @app.route('/saveProfile', methods=['POST'])

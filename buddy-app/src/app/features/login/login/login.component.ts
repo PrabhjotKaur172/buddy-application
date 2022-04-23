@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,19 +17,23 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
   }
 
-  loginUser(user : any){
+  loginUser(userInfo : any){
     this.ngxService.startLoader("loader-login-user"); 
-    this.dataService.loginUser(user).subscribe((response: any) => {
-      if (response) {
+    this.dataService.loginUser(userInfo).subscribe((response: any) => {
+      if (response !== '' || response !== null || response !== undefined) {
+        this.dataService.saveUserLoginInfo(response);
+        this.router.navigate(['/myProfile']);
+      } else {
         alert(response);
-        this.ngxService.stopLoader("loader-login-user");
       }
+      this.ngxService.stopLoader("loader-login-user");
     });
   }
 

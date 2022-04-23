@@ -8,6 +8,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class dataService {
 
   student$ = new BehaviorSubject(null);
+  userInfo$ = new BehaviorSubject(null);
 
   constructor(private http: HttpClient) { }
 
@@ -64,5 +65,10 @@ registerNewUser(user: any){
 loginUser(user: any){
   return this.http.post('http://localhost:5000//login', user);
 }
+
+saveUserLoginInfo(user: any){
+  this.userInfo$.next(user);
+}
+
  
 }
