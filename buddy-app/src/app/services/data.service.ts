@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Constants } from './../app-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -22,16 +23,16 @@ export class dataService {
 
 addStudentInfo(student: any){
   this.student$.next(student);
-  return this.http.post('http://localhost:5000//saveProfile', student);
+  return this.http.post(Constants.url +'saveProfile', student);
 }
 
 updateProfile(student: any){
   this.student$.next(student);
-  return this.http.put('http://localhost:5000//updateProfile?id='+ student.studentid, student);
+  return this.http.put(Constants.url + 'updateProfile?id='+ student.studentid, student);
 }
 
 getStudentInfo(id: any){
-  return this.http.get('http://localhost:5000//getProfile?id='+ id);
+  return this.http.get(Constants.url + 'getProfile?id='+ id);
 }
 
 updateStudentInfo(student: any){
@@ -39,31 +40,31 @@ updateStudentInfo(student: any){
 }
 
 getUnassignedBuddies(){
-  return this.http.get('http://localhost:5000//getUnassignedBuddys');
+  return this.http.get(Constants.url + 'getUnassignedBuddys');
 }
 
 getYourAssignedBuddy(id: any){
-  return this.http.get('http://localhost:5000//getYourAssignedBuddy?id='+ id);
+  return this.http.get(Constants.url + 'getYourAssignedBuddy?id='+ id);
 }
 
 getConnections(student: any){
-  return this.http.get('http://localhost:5000//getConnections?module=' + student.module +'&startdate=' + student.startdate);
+  return this.http.get(Constants.url + 'getConnections?module=' + student.module +'&startdate=' + student.startdate);
 }
 
 getCollegeNews(){
-  return this.http.get('http://localhost:5000//getCollegeNews');
+  return this.http.get(Constants.url + 'getCollegeNews');
 }
 
 postNews(news: any){
-  return this.http.post('http://localhost:5000//postCollegeNews', news);
+  return this.http.post(Constants.url + 'postCollegeNews', news);
 }
 
 registerNewUser(user: any){
-  return this.http.post('http://localhost:5000//register', user);
+  return this.http.post(Constants.url + 'register', user);
 }
 
 loginUser(user: any){
-  return this.http.post('http://localhost:5000//login', user);
+  return this.http.post(Constants.url + 'login', user);
 }
 
 saveUserLoginInfo(user: any){

@@ -41,7 +41,8 @@ export class ProfileDetailsComponent implements OnInit {
     'MSc in FinTech',
     'MSc in Artificial Intelligence',
     'MSc in Cyber Security',
-    'MSc in Financial Analytics'
+    'MSc in Financial Analytics',
+    'For Admin Only'
     ];
 
   countries = [
