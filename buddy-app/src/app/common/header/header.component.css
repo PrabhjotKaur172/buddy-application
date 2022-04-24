@@ -1,0 +1,11 @@
+.header-css{
+    height: 60px;
+    /* border-bottom: 1px solid #dee2e6; */
+    text-align: end;
+    padding: 10px;
+    color: #adb5bd;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
