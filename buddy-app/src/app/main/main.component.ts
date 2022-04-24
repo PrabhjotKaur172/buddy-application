@@ -20,6 +20,13 @@ export class MainComponent implements OnInit {
     this.dataService.userInfo$.subscribe(userData => {
       let data: any = userData;
       this.student = data;
+      if(this.student == null || this.student == undefined){
+        this.student = {
+          "email": null, 
+          "id": null, 
+          "username": null
+        }
+      }
     });
   }
 

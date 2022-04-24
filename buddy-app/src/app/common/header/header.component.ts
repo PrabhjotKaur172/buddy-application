@@ -40,8 +40,9 @@ export class HeaderComponent implements OnInit {
     this.student = {
       "email": null, 
       "id": null, 
-      "username": ""
+      "username": null
     }
+    this.dataService.saveUserLoginInfo(this.student);
     this.ngxService.stopLoader("loader-get-logout");
   }
 

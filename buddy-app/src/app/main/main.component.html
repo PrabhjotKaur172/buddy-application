@@ -1,11 +1,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col col-sm-12 col-md-2 col-lg-2" *ngIf="student != null">
+        <div class="col col-sm-12 col-md-2 col-lg-2" *ngIf="student.username != null">
             <app-sidebar></app-sidebar>
         </div>
         <div class="col col-sm-12 col-md-10 col-lg-10">
-            <app-header *ngIf="student != null"></app-header>
+            <app-header *ngIf="student.username != null"></app-header>
             <router-outlet></router-outlet>
         </div>
     </div>
