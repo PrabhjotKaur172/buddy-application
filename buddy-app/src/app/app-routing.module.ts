@@ -8,7 +8,7 @@ const routes: Routes = [{
   children: [
     {
       path: '',
-      loadChildren: () => import('./features/profile/profile-routing.module').then(m => m.ProfileRoutingModule)
+      loadChildren: () => import('./features/login/login-routing.module').then(m => m.LoginRoutingModule)
 
     },
     {

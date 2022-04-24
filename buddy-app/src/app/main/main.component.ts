@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { dataService } from './../services/data.service';
 
 @Component({
   selector: 'app-main',
@@ -7,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  student: any = {
+    "email": null, 
+    "id": null, 
+    "username": ""
+  }
+
+  constructor(
+    private dataService : dataService
+  ) { 
+    this.dataService.userInfo$.subscribe(userData => {
+      let data: any = userData;
+      this.student = data;
+    });
+  }
 
   ngOnInit(): void {
   }
