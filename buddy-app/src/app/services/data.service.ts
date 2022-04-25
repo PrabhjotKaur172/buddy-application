@@ -63,6 +63,10 @@ updateNews(news: any){
   return this.http.put(Constants.url + 'updateCollegeNews?news_id='+ news.news_id, news);
 }
 
+deleteNews(news: any){
+  return this.http.delete(Constants.url + 'deleteCollegeNews?news_id='+ news.news_id);
+}
+
 registerNewUser(user: any){
   return this.http.post(Constants.url + 'register', user);
 }

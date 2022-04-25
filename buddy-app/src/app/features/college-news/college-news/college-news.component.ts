@@ -41,7 +41,22 @@ export class CollegeNewsComponent implements OnInit {
             news = updatedNews;
          }
        });
-    })
+    });
+  }
+
+  deleteNews(news : any){
+    this.dataService.deleteNews(news).subscribe( response => {
+      let updatedNews: any = response;
+      alert('News deleted successfully!!');
+      console.log('News Deleted : ',updatedNews);
+      this.collegeNews.forEach((element: any) => {
+        if(element.news_id === news.news_id){
+          const isItem = (element: any) => element.news_id === news.news_id;
+          let index = this.collegeNews.findIndex(isItem);
+          this.collegeNews.splice(index,1);
+        }
+      });
+   });
   }
 
 }

@@ -85,8 +85,7 @@ class college_news(db.Model):
     author = db.Column(db.String)
     dateofnews = db.Column(db.Date)
 
-    def __init__(self,news_id,heading,content,author,dateofnews):
-        self.news_id = news_id
+    def __init__(self,heading,content,author,dateofnews):
         self.heading = heading
         self.content = content
         self.author = author
@@ -279,6 +278,16 @@ def updateCollegeNews():
 
         db.session.commit()
         return getNews.to_json()
+
+
+@app.route('/deleteCollegeNews', methods=['DELETE'])
+def deleteCollegeNews():
+    if request.method == 'DELETE':
+        news_ids = request.args['news_id']
+        deleteCollegeNews = college_news.query.filter_by(news_id=news_ids).delete()
+        db.session.commit()
+        return jsonify('Data deleted successfully!')
+    return jsonify('No college news found.')
 
 @app.route('/<path:path>')
 def static_proxy(path):
