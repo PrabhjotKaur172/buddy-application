@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 
@@ -13,8 +13,6 @@ export class CollegeNewsComponent implements OnInit {
     heading : '',
     author : '',
     date : '',
-    day : '',
-    time : '',
     content : ''
   }];
 
