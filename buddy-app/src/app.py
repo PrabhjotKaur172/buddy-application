@@ -85,7 +85,8 @@ class college_news(db.Model):
     author = db.Column(db.String)
     dateofnews = db.Column(db.Date)
 
-    def __init__(self,heading,content,author,dateofnews):
+    def __init__(self,news_id,heading,content,author,dateofnews):
+        self.news_id = news_id
         self.heading = heading
         self.content = content
         self.author = author
@@ -93,6 +94,7 @@ class college_news(db.Model):
     
     def to_json(self):
         return {
+            'news_id': self.news_id,
             'heading': self.heading,
             'content': self.content,
             'author': self.author,
@@ -256,6 +258,27 @@ def postCollegeNews():
             db.session.add(postCollegeNews)
             db.session.commit()
             return jsonify(**request.json)
+
+@app.route('/updateCollegeNews', methods=['PUT'])
+def updateCollegeNews():
+    if request.method == 'PUT':
+        news_ids = request.args['news_id']
+        getNews = college_news.query.filter_by(news_id=news_ids).first()
+
+        if 'heading' in request.json:
+             getNews.heading = request.json['heading']
+
+        if 'content' in request.json:
+             getNews.content = request.json['content']
+
+        if 'author' in request.json:
+             getNews.author = request.json['author']
+
+        if 'dateofnews' in request.json:
+             getNews.dateofnews = request.json['dateofnews']
+
+        db.session.commit()
+        return getNews.to_json()
 
 @app.route('/<path:path>')
 def static_proxy(path):

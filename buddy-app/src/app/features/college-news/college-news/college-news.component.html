@@ -1,15 +1,18 @@
 <div style="position: relative">
-<div class="card card-margin" *ngFor="let news of collegeNews">
+<div class="card card-margin" *ngFor="let news of collegeNews; index as i">
     <div class="card-header">
       <div class="col col-sm-11 col-md-11 col-lg-11 display-css">
         <b>{{news.heading}}</b><br>
         by {{news.author}} - {{news.dateofnews}}
       </div>
       <div class="col col-sm-1 col-md-1 col-lg-1 display-css">
-        <span class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#updateNews">
+        <span class="cursor-pointer">
           <ng-container
             [ngTemplateOutlet]="newsTemplate"
-            [ngTemplateOutletContext]="{ $implicit: news }">Update
+            [ngTemplateOutletContext]="{news}">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Update
+            </button>
           </ng-container>
         </span> 
         <span class="cursor-pointer">
@@ -23,15 +26,15 @@
     <div class="card-body">
       <h5 class="card-title"></h5>
       <p class="card-text">{{news.content}}</p>
-      <!-- <a href="#" class="btn btn-primary">Click here</a> to get more info. -->
     </div>
 </div>
 <ngx-ui-loader [loaderId]="'loader-get-collegenews'"></ngx-ui-loader>
 </div>
 
 <!-- Modal -->
-<ng-template #newsTemplate let-news>
-<div class="modal fade" id="updateNews" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<ng-template #newsTemplate let-news="news">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -39,14 +42,39 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        News Heading : {{news.heading}} <br>
-        News Author : {{news.author}} <br>
-        News Content : {{news.content}} <br>
-        News Heading : {{news.heading}} <br>
+        <div class="row">
+          <div class="col col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group form-div-margin">
+                  <label for="heading">News Heading</label>
+                  <input type="text" class="form-control" id="heading"
+                      required [(ngModel)]="news.heading" name="heading">
+              </div>
+          
+              <div class="form-group form-div-margin">
+                  <label for="content">News Content</label>
+                  <textarea rows = "6" cols = "40" class="form-control" [(ngModel)]="news.content" 
+                    name="content" id="content" required>
+                      Enter details here...
+                  </textarea>
+              </div>
+  
+              <div class="form-group form-div-margin">
+                  <label for="author">Author</label>
+                  <input type="text" class="form-control" id="author"
+                      required [(ngModel)]="news.author" name="author">
+              </div>
+          
+              <div class="form-group form-div-margin">
+                  <label for="dateofnews">News Publish Date</label>
+                  <input type="date" class="form-control" id="dateofnews"
+                      required [(ngModel)]="news.dateofnews" name="dateofnews">
+              </div>
+          </div>
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary"data-bs-dismiss="modal" (click)="updateNews(news)">Save changes</button>
       </div>
     </div>
   </div>

@@ -59,6 +59,10 @@ postNews(news: any){
   return this.http.post(Constants.url + 'postCollegeNews', news);
 }
 
+updateNews(news: any){
+  return this.http.put(Constants.url + 'updateCollegeNews?news_id='+ news.news_id, news);
+}
+
 registerNewUser(user: any){
   return this.http.post(Constants.url + 'register', user);
 }

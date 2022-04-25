@@ -29,11 +29,19 @@ export class CollegeNewsComponent implements OnInit {
      this.ngxService.startLoader("loader-get-collegenews"); 
      this.dataService.getCollegeNews().subscribe( response => {
         this.collegeNews = response;
-        // this.collegeNews.forEach((news:any) => {
-        //   news.day = news.dateofnews.getDay();
-        // });
         this.ngxService.stopLoader("loader-get-collegenews"); 
-     })
+     });
+  }
+
+  updateNews(news : any){
+    this.dataService.updateNews(news).subscribe( response => {
+       let updatedNews: any = response;
+       this.collegeNews.forEach((news: any) => {
+         if(news.id === updatedNews.id){
+            news = updatedNews;
+         }
+       });
+    })
   }
 
 }

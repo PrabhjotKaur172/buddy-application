@@ -66,7 +66,7 @@
         <p *ngIf="profileInfoSaved" class="text-success success-message-css">Your Profile is saved successfully!</p>
     </div>
 </div>
-<div>
+<div *ngIf="student.name !== 'Admin'">
    <div class="margin-top form-div-margin">
     Do you want to help a fresher in your college by being his or her buddy? Just like your buddy
     helped you once, when you were a newcomer. If yes, click on the button below, you will be added in
