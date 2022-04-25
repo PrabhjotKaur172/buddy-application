@@ -16,10 +16,28 @@ export class CollegeNewsComponent implements OnInit {
     content : ''
   }];
 
+  student: any = {
+    "email": null, 
+    "id": null, 
+    "username": ""
+  }
+
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService
-  ) { }
+  ) { 
+    this.dataService.userInfo$.subscribe(userData => {
+      let data: any = userData;
+      this.student = data;
+      if(this.student == null || this.student == undefined){
+        this.student = {
+          "email": null, 
+          "id": null, 
+          "username": ""
+        }
+      }
+    });
+  }
 
   ngOnInit(): void {
   this.getCollegeNews();

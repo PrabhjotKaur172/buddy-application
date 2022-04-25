@@ -5,7 +5,7 @@
         <b>{{news.heading}}</b><br>
         by {{news.author}} - {{news.dateofnews}}
       </div>
-      <div class="col col-sm-1 col-md-1 col-lg-1 display-css">
+      <div class="col col-sm-1 col-md-1 col-lg-1 display-css" *ngIf="student.username === 'admin'">
         <span class="cursor-pointer">
           <ng-container
             [ngTemplateOutlet]="newsTemplate"
