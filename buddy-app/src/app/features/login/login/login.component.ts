@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
     ) { }
 
   ngOnInit(): void {
@@ -28,8 +30,13 @@ export class LoginComponent implements OnInit {
     this.ngxService.startLoader("loader-login-user"); 
     this.dataService.loginUser(userInfo).subscribe((response: any) => {
       if (response !== '' || response !== null || response !== undefined) {
-        this.dataService.saveUserLoginInfo(response);
-        this.router.navigate(['/myProfile']);
+        if(response === "User not found. You need to register first."){
+          this.toastr.error("User not found. Enter correct email and password.");
+        } else {
+          this.dataService.saveUserLoginInfo(response);
+          this.router.navigate(['/myProfile']);
+          this.toastr.success("Login Successful");
+        }
       } else {
         alert(response);
       }

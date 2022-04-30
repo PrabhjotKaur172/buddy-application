@@ -5,6 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { CommonComponentsModule } from './common/common-components.module';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -46,7 +48,9 @@ import { FeedbackComponent } from './features/feedback/feedback/feedback.compone
     HttpClientModule,
     CommonComponentsModule,
     FormsModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [
     ProfileDetailsComponent

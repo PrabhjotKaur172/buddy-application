@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService
   ) { 
     this.dataService.userInfo$.subscribe(userData => {
       let data: any = userData;
@@ -44,6 +46,7 @@ export class HeaderComponent implements OnInit {
     }
     this.dataService.saveUserLoginInfo(this.student);
     this.ngxService.stopLoader("loader-get-logout");
+    this.toastr.success("You are logged out now. You need to login again.");
   }
 
 }

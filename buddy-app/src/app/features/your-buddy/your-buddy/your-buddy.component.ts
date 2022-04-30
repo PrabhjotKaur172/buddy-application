@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 import { ProfileDetailsComponent } from 'src/app/layout/profile-details/profile-details.component';
 
 @Component({
@@ -33,6 +34,7 @@ export class YourBuddyComponent implements OnInit {
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService,
     private profileDetailComponent : ProfileDetailsComponent
   ) { }
 
@@ -106,9 +108,10 @@ export class YourBuddyComponent implements OnInit {
         this.profileDetailComponent.updateProfile(this.buddy,'buddyUpdated');
         this.buddyAssigned = true;
         this.ngxService.stopLoader("loader-get-buddies");
+        this.toastr.success("Buddy is assigned to you successfully!");
       } else {
-        alert('No Buddy found for you. We will keep you updated soon on this page.');
         this.ngxService.stopLoader("loader-get-buddies");
+        this.toastr.info('No Buddy found for you. We will keep you updated soon on this page.');
       }
     });
   }

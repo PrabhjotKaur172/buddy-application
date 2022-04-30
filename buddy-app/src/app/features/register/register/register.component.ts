@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 @Component({
@@ -21,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { 
     this.isRegisterPageOpen = true;
   }
@@ -33,9 +35,13 @@ export class RegisterComponent implements OnInit {
     this.ngxService.startLoader("loader-register-newuser"); 
     this.dataService.registerNewUser(newUser).subscribe((response: any) => {
       if (response) {
-        alert("User has been registered successfully.");
         this.ngxService.stopLoader("loader-register-newuser");
-        this.router.navigate(['/login']);
+        if(response === "You are already registered with this student id."){
+          this.toastr.error(response);
+        } else {
+          this.toastr.success(response);
+          this.router.navigate(['/login']);
+        }
       }
     });
   }

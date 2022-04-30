@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-feedback',
@@ -24,7 +25,8 @@ export class FeedbackComponent implements OnInit {
 
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService
   ) { 
     this.dataService.userInfo$.subscribe(userData => {
       this.data = userData;
@@ -38,8 +40,10 @@ export class FeedbackComponent implements OnInit {
   saveFeedback(feedback : any){
     this.ngxService.startLoader("loader-feedback-form"); 
     this.dataService.saveFeedback(feedback).subscribe(response => {
-      if (response) {
+      let feedbackResponse : any = response;
+      if (feedbackResponse) {
         this.ngxService.stopLoader("loader-feedback-form");
+        this.toastr.success(feedbackResponse);
       }
     });
   }

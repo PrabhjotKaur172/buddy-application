@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { dataService } from './../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -67,11 +68,14 @@ export class ProfileDetailsComponent implements OnInit {
 
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService
   ) { 
     this.dataService.userInfo$.subscribe(userData => {
       let data: any = userData;
       this.studentId = data.id;
+      this.student.studentid = data.id;
+      this.student.name = data.username;
     });
   }
 
@@ -88,6 +92,7 @@ export class ProfileDetailsComponent implements OnInit {
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
         this.ngxService.stopLoader("loader-get-profile");
+        this.toastr.success("Your profile is saved successfully.");
       }
     });
   }
@@ -107,6 +112,7 @@ export class ProfileDetailsComponent implements OnInit {
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
         this.ngxService.stopLoader("loader-get-profile");
+        this.toastr.success("Your profile is updated successfully.");
       }
     }); 
   }
@@ -121,7 +127,7 @@ export class ProfileDetailsComponent implements OnInit {
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
         this.dataService.updateStudentInfo(this.student);
       } else {
-        alert("Profile not found using student id " + this.studentId);
+        this.toastr.info("Fill the details to save your profile.");
       }
       this.ngxService.stopLoader("loader-get-profile");
     });
