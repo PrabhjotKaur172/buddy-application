@@ -20,6 +20,7 @@ import { QueriesComponent } from './features/queries/queries/queries.component';
 import { AdminComponent } from './features/admin/admin/admin.component';
 import { LoginComponent } from './features/login/login/login.component';
 import { RegisterComponent } from './features/register/register/register.component';
+import { FeedbackComponent } from './features/feedback/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { RegisterComponent } from './features/register/register/register.compone
     QueriesComponent,
     AdminComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,

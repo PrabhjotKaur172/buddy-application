@@ -79,5 +79,8 @@ saveUserLoginInfo(user: any){
   this.userInfo$.next(user);
 }
 
+saveFeedback(feedback: any){
+  return this.http.post(Constants.url + 'buddyFeedback', feedback);
+}
  
 }

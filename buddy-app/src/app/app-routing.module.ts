@@ -55,6 +55,11 @@ const routes: Routes = [{
       path: 'login',
       loadChildren: () => import('./features/login/login-routing.module').then(m => m.LoginRoutingModule)
 
+    },
+    {
+      path: 'buddyFeedback',
+      loadChildren: () => import('./features/feedback/feedback-routing.module').then(m => m.FeedbackRoutingModule)
+
     }
   ]
 },
