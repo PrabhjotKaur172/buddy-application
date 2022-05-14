@@ -1,11 +1,12 @@
-from flask import Flask ,send_from_directory
-from flask_sqlalchemy import SQLAlchemy
-from flask import jsonify
-from flask import request
+from flask import Flask, jsonify, request, send_from_directory
+from flask_socketio import SocketIO, emit
 from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='', static_folder='dist/buddy-app')
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app, cors_allowed_origins='*')
 CORS(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://umbioacu:1j9KWmSadiqqKZdi9pP0qcW2rqSTBREm@manny.db.elephantsql.com/umbioacu'
@@ -132,6 +133,26 @@ class buddy_feedback(db.Model):
             'answer6': self.answer6,
             'answer7': self.answer7
         }
+class buddy_messages(db.Model):
+    __tablename__ = 'buddy_messages'
+    message_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    messagers_id = db.Column(db.String)
+    messages = db.Column(db.String)
+    message_publish_time = db.Column(db.Date)
+
+    def __init__(self,messagers_id,messages,message_publish_time):
+        self.messagers_id = messagers_id
+        self.messages = messages
+        self.message_publish_time = message_publish_time
+    
+    def to_json(self):
+        return {
+            'message_id': self.message_id,
+            'messagers_id': self.messagers_id,
+            'messages': self.messages,
+            'message_publish_time': self.message_publish_time.strftime("%Y-%m-%d")
+        }
+
 
 @app.route('/')
 def root():
@@ -346,5 +367,43 @@ def buddyFeedback():
             db.session.commit()
             return jsonify('Feedback added successfully!')
 
-if __name__ == '__main__':
-     app.run(debug=True)
+@app.route('/sendMessages', methods=['POST'])
+def sendMessages():
+    if request.method == 'POST':
+        messagers_ids = request.json['messagers_id'],
+        messagess = request.json['messages'],
+        message_publish_times = request.json['message_publish_time']
+
+        if messagers_ids == '' or messagess == '' or message_publish_times == '':
+            return jsonify('Please enter the required fields.')
+        else:
+            postMessage = buddy_messages(messagers_id=messagers_ids,messages=messagess,message_publish_time=message_publish_times)
+            db.session.add(postMessage)
+            db.session.commit()
+            return jsonify('Message sent successfully!')
+
+@app.route('/getMessages', methods=['GET'])
+def getMessages():
+    if request.method == 'GET':
+        messagers_ids = request.args['messagers_id']
+        getMessages = buddy_messages.query.filter_by(messagers_id=messagers_ids).all()
+        return jsonify([i.to_json() for i in getMessages])  
+    return jsonify('No Message history found.')
+
+# @socketio.on('handleMessage')
+# def handleMessage(data):
+#     emit('my response', data, broadcast=True)
+#     print('Receiving Message : ' + str(data))
+#     return data
+
+# @socketio.on('handleMessage')
+# def handle_my_custom_event(data):
+#     print('Receiving Message : ' + data)
+#     emit('my response', data, broadcast=True)
+    
+    # emit('my response',json, broadcast=True)
+    # send(message, broadcast = True)
+
+if __name__ == '__main__':  
+    app.run(debug=True)
+    # socketio.run(app, debug=True)

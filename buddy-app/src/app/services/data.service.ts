@@ -82,5 +82,13 @@ saveUserLoginInfo(user: any){
 saveFeedback(feedback: any){
   return this.http.post(Constants.url + 'buddyFeedback', feedback);
 }
+
+getMessages(messagers_id: any){
+  return this.http.get(Constants.url + 'getMessages?messagers_id=' + messagers_id);
+}
+
+sendMessages(messageBody: any){
+  return this.http.post(Constants.url + 'sendMessages', messageBody);
+}
  
 }

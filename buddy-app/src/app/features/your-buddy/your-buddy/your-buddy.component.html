@@ -13,6 +13,6 @@
     </div>
 </div>
 <app-profile-info [profileData]="buddy" (displayMessageBox)="displayMessageBox($event)" *ngIf="!isMessageBoxOpened"></app-profile-info>
-<app-chat [userInfo]="buddy" (displayBuddyInfo)="displayBuddyInfo($event)" *ngIf="isMessageBoxOpened"></app-chat>
+<app-chat [studentInfo]="user" [userInfo]="buddy" (displayBuddyInfo)="displayBuddyInfo($event)" *ngIf="isMessageBoxOpened"></app-chat>
 <ngx-ui-loader [loaderId]="'loader-get-buddies'"></ngx-ui-loader>
 </div>

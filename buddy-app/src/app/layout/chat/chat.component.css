@@ -20,3 +20,17 @@
     width: 60px;
     height: 60px;
 }
+
+.message-container{
+    margin-bottom: 0px;
+}
+
+.text-message{
+    float: right;
+    background: #aed2ff;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 2px;
+    clear: both;
+    margin-bottom: 5px;
+}

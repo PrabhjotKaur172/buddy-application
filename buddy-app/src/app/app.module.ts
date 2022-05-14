@@ -7,6 +7,7 @@ import { CommonComponentsModule } from './common/common-components.module';
 import { NgxUiLoaderModule } from "ngx-ui-loader";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
@@ -23,6 +24,8 @@ import { AdminComponent } from './features/admin/admin/admin.component';
 import { LoginComponent } from './features/login/login/login.component';
 import { RegisterComponent } from './features/register/register/register.component';
 import { FeedbackComponent } from './features/feedback/feedback/feedback.component';
+
+// const config: SocketIoConfig = { url: 'http://localhost:5000//', options: { transports: ['websocket'] } };
 
 @NgModule({
   declarations: [
@@ -51,6 +54,7 @@ import { FeedbackComponent } from './features/feedback/feedback/feedback.compone
     NgxUiLoaderModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    // SocketIoModule.forRoot(config)
   ],
   providers: [
     ProfileDetailsComponent
