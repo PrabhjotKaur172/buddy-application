@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { dataService } from './../../services/data.service';
+import * as moment from 'moment';
 // import { SocketService } from 'src/app/services/chat-socketio.service';
 // import { Socket } from 'ngx-socket-io'; 
 
@@ -31,7 +32,7 @@ export class ChatComponent implements OnInit {
        let messagesArray: any = response;
        console.log(response);
        messagesArray.forEach((element : any) => {
-        this.yourMessage.push(element.messages);
+        this.yourMessage.push(element);
        });
        
        this.duplicateMessagesArray = JSON.parse(JSON.stringify(this.yourMessage));
@@ -53,19 +54,30 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage(message:any){
-    this.yourMessage.push(message);
-    this.duplicateMessagesArray = JSON.parse(JSON.stringify(this.yourMessage));
+    this.yourMessage = {
+      sender_name : this.studentInfo.name,
+      message_publish_time : moment(new Date()).format('DD-MM-YYYY HH:mm'),
+      messages : message
+    }
+    this.duplicateMessagesArray.push(JSON.parse(JSON.stringify(this.yourMessage)));
     let requestBody = {
       messagers_id : "",
       messages : "",
-      message_publish_time : new Date()
+      message_publish_time : new Date(),
+      sender_name : ""
     }
     requestBody.messagers_id = this.studentInfo.studentid + " " +this.userInfo.studentid;
     requestBody.messages = message;
+    requestBody.sender_name = this.studentInfo.name;
     this.dataService.sendMessages(requestBody).subscribe(response => {
       if (response != null) {
        console.log(response);
        this.message = '';
+      //  document.getElementById("messageBox").focus({preventScroll:false});
+       let objDiv = document.getElementById("messageBox");
+       if(objDiv){
+        objDiv.focus({preventScroll:false});;
+       }
       }
     });
     // this.socketService.sendMessages(message);

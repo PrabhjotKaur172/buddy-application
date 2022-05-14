@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, send_from_directory
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import and_
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='', static_folder='dist/buddy-app')
@@ -139,18 +140,21 @@ class buddy_messages(db.Model):
     messagers_id = db.Column(db.String)
     messages = db.Column(db.String)
     message_publish_time = db.Column(db.Date)
+    sender_name = db.Column(db.String)
 
-    def __init__(self,messagers_id,messages,message_publish_time):
+    def __init__(self,messagers_id,messages,message_publish_time,sender_name):
         self.messagers_id = messagers_id
         self.messages = messages
         self.message_publish_time = message_publish_time
+        self.sender_name = sender_name
     
     def to_json(self):
         return {
             'message_id': self.message_id,
             'messagers_id': self.messagers_id,
             'messages': self.messages,
-            'message_publish_time': self.message_publish_time.strftime("%Y-%m-%d")
+            'message_publish_time': self.message_publish_time.strftime("%d-%m-%Y %H:%M"),
+            'sender_name': self.sender_name
         }
 
 
@@ -373,11 +377,12 @@ def sendMessages():
         messagers_ids = request.json['messagers_id'],
         messagess = request.json['messages'],
         message_publish_times = request.json['message_publish_time']
+        sender_names = request.json['sender_name']
 
-        if messagers_ids == '' or messagess == '' or message_publish_times == '':
+        if messagers_ids == '' or messagess == '' or message_publish_times == '' or sender_names == '':
             return jsonify('Please enter the required fields.')
         else:
-            postMessage = buddy_messages(messagers_id=messagers_ids,messages=messagess,message_publish_time=message_publish_times)
+            postMessage = buddy_messages(messagers_id=messagers_ids,messages=messagess,message_publish_time=message_publish_times,sender_name=sender_names)
             db.session.add(postMessage)
             db.session.commit()
             return jsonify('Message sent successfully!')
@@ -386,7 +391,8 @@ def sendMessages():
 def getMessages():
     if request.method == 'GET':
         messagers_ids = request.args['messagers_id']
-        getMessages = buddy_messages.query.filter_by(messagers_id=messagers_ids).all()
+        msgid1=messagers_ids.split(" ")
+        getMessages = buddy_messages.query.filter(and_(buddy_messages.messagers_id.contains(msgid1[1]),buddy_messages.messagers_id.contains(msgid1[0]))).all()
         return jsonify([i.to_json() for i in getMessages])  
     return jsonify('No Message history found.')
 

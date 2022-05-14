@@ -13,7 +13,7 @@
             <a type="button" class="btn btn-primary btn-css" (click)="openConnections()">Go Back to Connections</a>
         </div>
         <app-profile-info [profileData]="selectedConnection" (displayMessageBox)="displayMessageBox($event)" *ngIf="!isMessageBoxOpened"></app-profile-info>
-        <app-chat [userInfo]="selectedConnection" (displayBuddyInfo)="displayBuddyInfo($event)" *ngIf="isMessageBoxOpened"></app-chat>
+        <app-chat [studentInfo]="user" [userInfo]="selectedConnection" (displayBuddyInfo)="displayBuddyInfo($event)" *ngIf="isMessageBoxOpened"></app-chat>
     </div>
     <ngx-ui-loader [loaderId]="'loader-get-connections'"></ngx-ui-loader>
 </div>

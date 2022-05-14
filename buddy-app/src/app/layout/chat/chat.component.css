@@ -25,7 +25,7 @@
     margin-bottom: 0px;
 }
 
-.text-message{
+.text-message-right{
     float: right;
     background: #aed2ff;
     border-radius: 5px;
@@ -33,4 +33,24 @@
     margin-bottom: 2px;
     clear: both;
     margin-bottom: 5px;
+}
+
+.text-message-left{
+    background: #f1f1eb;
+    float: left;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 2px;
+    clear: both;
+    margin-bottom: 5px;
+}
+
+.text-grey{
+    color: grey;
+}
+
+.card-body-scroll{
+    height: 350px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
 }
