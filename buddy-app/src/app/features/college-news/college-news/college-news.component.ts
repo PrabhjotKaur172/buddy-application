@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-college-news',
@@ -24,7 +25,8 @@ export class CollegeNewsComponent implements OnInit {
 
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService
   ) { 
     this.dataService.userInfo$.subscribe(userData => {
       let data: any = userData;
@@ -65,7 +67,6 @@ export class CollegeNewsComponent implements OnInit {
   deleteNews(news : any){
     this.dataService.deleteNews(news).subscribe( response => {
       let updatedNews: any = response;
-      alert('News deleted successfully!!');
       this.collegeNews.forEach((element: any) => {
         if(element.news_id === news.news_id){
           const isItem = (element: any) => element.news_id === news.news_id;
@@ -73,6 +74,7 @@ export class CollegeNewsComponent implements OnInit {
           this.collegeNews.splice(index,1);
         }
       });
+      this.toastr.success("News is deleted successfully.");
    });
   }
 

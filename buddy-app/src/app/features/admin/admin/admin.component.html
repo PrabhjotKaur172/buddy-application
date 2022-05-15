@@ -1,6 +1,5 @@
 <div style="position: relative">
     <div class="row">
-        <h1 class="text-blue">ADMIN PAGE</h1>
         <p>Post latest college news here !!</p>
         <div class="col col-sm-12 col-md-6 col-lg-6">
             <div class="form-group form-div-margin">
@@ -31,7 +30,6 @@
         </div>
         <div>
             <button type="button" class="btn btn-primary" (click)="postNews(news)">Post News</button>
-            <p *ngIf="isnNewsPosted" class="text-success success-message-css">News is posted successfully!</p>
         </div>
     </div>
     <ngx-ui-loader [loaderId]="'loader-post-news'"></ngx-ui-loader>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin',
@@ -16,13 +17,11 @@ export class AdminComponent implements OnInit {
     dateofnews : null
   }
 
-  isnNewsPosted: any;
-
   constructor(
     private dataService : dataService,
-    private ngxService: NgxUiLoaderService
+    private ngxService: NgxUiLoaderService,
+    private toastr: ToastrService
   ) { 
-    this.isnNewsPosted = false;
   }
 
   ngOnInit(): void {
@@ -32,8 +31,8 @@ export class AdminComponent implements OnInit {
     this.ngxService.startLoader("loader-post-news"); 
     this.dataService.postNews(news).subscribe(response => {
       if (response) {
-        this.isnNewsPosted = true;
         this.ngxService.stopLoader("loader-post-news");
+        this.toastr.success("News is posted successfully.");
       }
     });
   }
