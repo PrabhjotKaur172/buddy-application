@@ -23,6 +23,13 @@ export class CollegeNewsComponent implements OnInit {
     "username": ""
   }
 
+  selectedNews: any = [{
+    heading : '',
+    author : '',
+    date : '',
+    content : ''
+  }];
+
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService,
@@ -61,6 +68,7 @@ export class CollegeNewsComponent implements OnInit {
             news = updatedNews;
          }
        });
+       this.toastr.success("News is updated successfully.");
     });
   }
 
@@ -76,6 +84,10 @@ export class CollegeNewsComponent implements OnInit {
       });
       this.toastr.success("News is deleted successfully.");
    });
+  }
+
+  selectCurrentNews(currentNews: any){
+    this.selectedNews = currentNews;
   }
 
 }

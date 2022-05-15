@@ -8,9 +8,8 @@
       <div class="col col-sm-1 col-md-1 col-lg-1 display-css" *ngIf="student.username === 'admin'">
         <span class="cursor-pointer">
           <ng-container
-            [ngTemplateOutlet]="newsTemplate"
-            [ngTemplateOutletContext]="{news}">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            [ngTemplateOutlet]="newsTemplate">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="selectCurrentNews(news)">
               Update
             </button>
           </ng-container>
@@ -32,7 +31,7 @@
 </div>
 
 <!-- Modal -->
-<ng-template #newsTemplate let-news="news">
+<ng-template #newsTemplate>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -46,12 +45,12 @@
               <div class="form-group form-div-margin">
                   <label for="heading">News Heading</label>
                   <input type="text" class="form-control" id="heading"
-                      required [(ngModel)]="news.heading" name="heading">
+                      required [(ngModel)]="selectedNews.heading" name="heading">
               </div>
           
               <div class="form-group form-div-margin">
                   <label for="content">News Content</label>
-                  <textarea rows = "6" cols = "40" class="form-control" [(ngModel)]="news.content" 
+                  <textarea rows = "6" cols = "40" class="form-control" [(ngModel)]="selectedNews.content" 
                     name="content" id="content" required>
                       Enter details here...
                   </textarea>
@@ -60,20 +59,20 @@
               <div class="form-group form-div-margin">
                   <label for="author">Author</label>
                   <input type="text" class="form-control" id="author"
-                      required [(ngModel)]="news.author" name="author">
+                      required [(ngModel)]="selectedNews.author" name="author">
               </div>
           
               <div class="form-group form-div-margin">
                   <label for="dateofnews">News Publish Date</label>
                   <input type="date" class="form-control" id="dateofnews"
-                      required [(ngModel)]="news.dateofnews" name="dateofnews">
+                      required [(ngModel)]="selectedNews.dateofnews" name="dateofnews">
               </div>
           </div>
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary"data-bs-dismiss="modal" (click)="updateNews(news)">Save changes</button>
+        <button type="button" class="btn btn-primary"data-bs-dismiss="modal" (click)="updateNews(selectedNews)">Save changes</button>
       </div>
     </div>
   </div>
