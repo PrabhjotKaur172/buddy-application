@@ -30,7 +30,7 @@ export class ChatComponent implements OnInit {
     this.dataService.getMessages(messagersId).subscribe(response => {
       if (response != null) {
        let messagesArray: any = response;
-       console.log(response);
+       (response);
        messagesArray.forEach((element : any) => {
         this.yourMessage.push(element);
        });
@@ -71,9 +71,7 @@ export class ChatComponent implements OnInit {
     requestBody.sender_name = this.studentInfo.name;
     this.dataService.sendMessages(requestBody).subscribe(response => {
       if (response != null) {
-       console.log(response);
        this.message = '';
-      //  document.getElementById("messageBox").focus({preventScroll:false});
        let objDiv = document.getElementById("messageBox");
        if(objDiv){
         objDiv.focus({preventScroll:false});;

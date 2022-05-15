@@ -66,7 +66,6 @@ export class CollegeNewsComponent implements OnInit {
     this.dataService.deleteNews(news).subscribe( response => {
       let updatedNews: any = response;
       alert('News deleted successfully!!');
-      console.log('News Deleted : ',updatedNews);
       this.collegeNews.forEach((element: any) => {
         if(element.news_id === news.news_id){
           const isItem = (element: any) => element.news_id === news.news_id;

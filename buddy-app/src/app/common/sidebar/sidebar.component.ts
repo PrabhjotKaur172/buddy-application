@@ -20,6 +20,7 @@ export class SidebarComponent implements OnInit {
     this.dataService.userInfo$.subscribe(userData => {
       let data: any = userData;
       this.student = data;
+      console.log('sidebar data', this.student);
       if(this.student == null || this.student == undefined){
         this.student = {
           "email": null, 

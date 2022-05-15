@@ -24,6 +24,7 @@ import { AdminComponent } from './features/admin/admin/admin.component';
 import { LoginComponent } from './features/login/login/login.component';
 import { RegisterComponent } from './features/register/register/register.component';
 import { FeedbackComponent } from './features/feedback/feedback/feedback.component';
+import { MyMenteeComponent } from './features/my-mentee/my-mentee/my-mentee.component';
 
 // const config: SocketIoConfig = { url: 'http://localhost:5000//', options: { transports: ['websocket'] } };
 
@@ -43,7 +44,8 @@ import { FeedbackComponent } from './features/feedback/feedback/feedback.compone
     AdminComponent,
     LoginComponent,
     RegisterComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    MyMenteeComponent
   ],
   imports: [
     BrowserModule,

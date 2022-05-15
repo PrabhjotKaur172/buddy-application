@@ -60,6 +60,11 @@ const routes: Routes = [{
       path: 'buddyFeedback',
       loadChildren: () => import('./features/feedback/feedback-routing.module').then(m => m.FeedbackRoutingModule)
 
+    },
+    {
+      path: 'myMentee',
+      loadChildren: () => import('./features/my-mentee/my-mentee-routing.module').then(m => m.MyMenteeRoutingModule)
+
     }
   ]
 },
