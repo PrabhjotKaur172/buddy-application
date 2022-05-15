@@ -1,5 +1,5 @@
 .div-css{
-    background-color: black;
+    background-color: #e0e0e0;
     height: 100%;
 }
 .div-css p{
@@ -10,6 +10,12 @@
 }
 .list-css li{
     border: none;
-    background-color: black;
+    background-color: #e0e0e0;
     color: white;
+}
+
+.list-css li a{
+    /* color: black; */
+    font-weight: 600;
+    text-decoration: none;
 }
