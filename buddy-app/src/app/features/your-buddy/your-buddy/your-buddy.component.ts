@@ -71,7 +71,12 @@ export class YourBuddyComponent implements OnInit {
 
   findBestBuddy(buddies: any){
     if(buddies.length > 0){
-      this.filteredBuddy = buddies.filter( (b: any) => b.module === this.user.module && b.country === this.user.country && b.hobby === this.user.hobby);
+      this.filteredBuddy = buddies.filter( (b: any) => {
+        if(b.module === this.user.module && b.country === this.user.country && b.hobby === this.user.hobby){
+          return b;
+        }
+      });
+       
       if(this.filteredBuddy.length > 0){
         return this.filteredBuddy[0];
       }
@@ -90,6 +95,10 @@ export class YourBuddyComponent implements OnInit {
            if(this.filteredBuddy.length > 0){
             return this.filteredBuddy[0];
           }
+          
+          if(this.filteredBuddy.length === 0){
+            return buddies[0];
+          }
           }
         }
       }
@@ -103,12 +112,16 @@ export class YourBuddyComponent implements OnInit {
       if (res.length > 0) {
         this.unassignedBuddies = response;
         this.buddy = this.findBestBuddy(this.unassignedBuddies);
-        this.buddy.studentassignedid = this.user.studentid;
-        this.buddy.studentassignedname = this.user.name;
-        this.profileDetailComponent.updateProfile(this.buddy,'buddyUpdated');
+        if(this.buddy != undefined || this.buddy != null){
+          this.buddy.studentassignedid = this.user.studentid;
+          this.buddy.studentassignedname = this.user.name;
+          this.profileDetailComponent.updateProfile(this.buddy,'buddyUpdated');
+          this.toastr.success("Buddy is assigned to you successfully!");
+        } else{
+          this.toastr.info('No Buddy found for you. We will keep you updated soon on this page.');
+        }
         this.buddyAssigned = true;
         this.ngxService.stopLoader("loader-get-buddies");
-        this.toastr.success("Buddy is assigned to you successfully!");
       } else {
         this.ngxService.stopLoader("loader-get-buddies");
         this.toastr.info('No Buddy found for you. We will keep you updated soon on this page.');

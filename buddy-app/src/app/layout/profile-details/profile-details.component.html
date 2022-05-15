@@ -61,8 +61,8 @@
         </div>
     </div>
     <div>
-        <button type="button" class="btn btn-primary" *ngIf="student.name == null" (click)="saveProfile(student)">Save Profile</button>
-        <button type="button" class="btn btn-primary margin-left-20" *ngIf="student.name != null" (click)="updateProfile(student,'')">Update Profile</button>
+        <button type="button" class="btn btn-primary" *ngIf="studentCopy.startdate == null && !informationSaved" (click)="saveProfile(student)">Save Profile</button>
+        <button type="button" class="btn btn-primary margin-left-20" *ngIf="studentCopy.startdate != null && informationSaved" (click)="updateProfile(student,'')">Update Profile</button>
         <p *ngIf="profileInfoSaved" class="text-success success-message-css">Your Profile is saved successfully!</p>
     </div>
 </div>

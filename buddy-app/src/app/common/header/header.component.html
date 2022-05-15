@@ -1,8 +1,8 @@
 <div style="position: relative">
 <div class="row">
     <div class="col col-sm-12 col-md-12 col-lg-12">
-        <div class="header-css"><strong>{{student.username || 'First Login'}} | 
-            <span class="cursor-pointer" routerLink="/login" (click)="logout()">Logout</span></strong></div>
+        <div class="header-css"><a routerLink="/myProfile" routerLinkActive="active"><strong>{{student.username || 'First Login'}}</strong></a> | 
+            <span class="cursor-pointer" routerLink="/login" (click)="logout()"><strong>Logout</strong></span></div>
     </div>
 </div>
 <ngx-ui-loader [loaderId]="'loader-get-logout'"></ngx-ui-loader>

@@ -17,11 +17,25 @@ class ImageSnippet {
 export class ProfileDetailsComponent implements OnInit {
 
   profileInfoSaved: boolean = false;
+  informationSaved: boolean = false;
   studentImage: any;
   pipe = new DatePipe('en-US'); // Use your own locale
   studentNotAssgined: any;
   studentId: any;
   todaysDate: any = this.pipe.transform(new Date(), 'yyyy-MM-dd');
+  studentCopy: any = {
+    name : null,
+    studentid : null,
+    bio : null,
+    module : null,
+    startdate : null,
+    enddate : null,
+    country : null,
+    hobby : null,
+    isbuddy : false,
+    studentassignedname : null,
+    studentassignedid : null
+  }
 
   student: any = {
     name : null,
@@ -94,6 +108,8 @@ export class ProfileDetailsComponent implements OnInit {
         this.student = response;
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
+        this.studentCopy = {...this.student};
+        this.informationSaved = true;
         this.ngxService.stopLoader("loader-get-profile");
         this.toastr.success("Your profile is saved successfully.");
       }
@@ -126,11 +142,13 @@ export class ProfileDetailsComponent implements OnInit {
       let finalResponse = response;
       if (finalResponse !== "Profile not found.") {
         this.student = response;
-        // this.student.enddateTime = this.student.enddate;
+        this.studentCopy = {...this.student};
+        this.informationSaved = true;
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
         this.dataService.updateStudentInfo(this.student);
       } else {
+        this.studentCopy = {...this.student};
         this.toastr.info("Fill the details to save your profile.");
       }
       this.ngxService.stopLoader("loader-get-profile");

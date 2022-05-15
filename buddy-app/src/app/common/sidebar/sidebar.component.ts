@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { dataService } from './../../services/data.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,6 +14,8 @@ export class SidebarComponent implements OnInit {
     "id": null, 
     "username": ""
   }
+  pipe = new DatePipe('en-US'); // Use your own locale
+  todaysDate: any = this.pipe.transform(new Date(), 'yyyy-MM-dd');
 
   constructor(
     private dataService : dataService
