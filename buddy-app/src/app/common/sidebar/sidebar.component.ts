@@ -17,7 +17,20 @@ export class SidebarComponent implements OnInit {
   constructor(
     private dataService : dataService
   ) {
-    this.dataService.userInfo$.subscribe(userData => {
+    // this.dataService.userInfo$.subscribe(userData => {
+    //   let data: any = userData;
+    //   this.student = data;
+    //   console.log('sidebar data', this.student);
+    //   if(this.student == null || this.student == undefined){
+    //     this.student = {
+    //       "email": null, 
+    //       "id": null, 
+    //       "username": ""
+    //     }
+    //   }
+    // });
+
+    this.dataService.student$.subscribe(userData => {
       let data: any = userData;
       this.student = data;
       console.log('sidebar data', this.student);

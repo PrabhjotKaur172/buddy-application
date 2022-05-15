@@ -61,12 +61,12 @@
         </div>
     </div>
     <div>
-        <button type="button" class="btn btn-primary" (click)="saveProfile(student)">Save Profile</button>
-        <button type="button" class="btn btn-primary margin-left-20" (click)="updateProfile(student,'')">Update Profile</button>
+        <button type="button" class="btn btn-primary" *ngIf="student.name == null" (click)="saveProfile(student)">Save Profile</button>
+        <button type="button" class="btn btn-primary margin-left-20" *ngIf="student.name != null" (click)="updateProfile(student,'')">Update Profile</button>
         <p *ngIf="profileInfoSaved" class="text-success success-message-css">Your Profile is saved successfully!</p>
     </div>
 </div>
-<div *ngIf="student.name !== 'Admin'">
+<div *ngIf="(student.name !== 'Admin') && (todaysDate > student.enddate)">
    <div class="margin-top form-div-margin">
     Do you want to help a fresher in your college by being his or her buddy? Just like your buddy
     helped you once, when you were a newcomer. If yes, click on the button below, you will be added in
@@ -86,7 +86,7 @@
         </div>
     </div>
     <div class="form-group form-div-margin">
-        <label for="name"><b>Student assigned :</b> <span class="text-blue"><u>{{student.studentassignedname || studentNotAssgined}}</u></span></label>
+        <label for="name"><b>Student assigned :</b> <span class="text-blue" (click)="openMentee()"><u>{{student.studentassignedname || studentNotAssgined}}</u></span></label>
     </div>
 </div>
 <ngx-ui-loader [loaderId]="'loader-get-profile'"></ngx-ui-loader>

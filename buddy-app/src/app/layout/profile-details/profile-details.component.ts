@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { dataService } from './../../services/data.service';
 import { NgxUiLoaderService } from "ngx-ui-loader";
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -20,6 +21,7 @@ export class ProfileDetailsComponent implements OnInit {
   pipe = new DatePipe('en-US'); // Use your own locale
   studentNotAssgined: any;
   studentId: any;
+  todaysDate: any = this.pipe.transform(new Date(), 'yyyy-MM-dd');
 
   student: any = {
     name : null,
@@ -69,7 +71,8 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(
     private dataService : dataService,
     private ngxService: NgxUiLoaderService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) { 
     this.dataService.userInfo$.subscribe(userData => {
       let data: any = userData;
@@ -123,6 +126,7 @@ export class ProfileDetailsComponent implements OnInit {
       let finalResponse = response;
       if (finalResponse !== "Profile not found.") {
         this.student = response;
+        // this.student.enddateTime = this.student.enddate;
         this.student.startdate = this.pipe.transform(this.student.startdate, 'yyyy-MM-dd');
         this.student.enddate = this.pipe.transform(this.student.enddate, 'yyyy-MM-dd');
         this.dataService.updateStudentInfo(this.student);
@@ -131,6 +135,10 @@ export class ProfileDetailsComponent implements OnInit {
       }
       this.ngxService.stopLoader("loader-get-profile");
     });
+  }
+
+  openMentee(){
+    this.router.navigate(['/myMentee']);
   }
   
   processProfileImage(profileImage: any) {

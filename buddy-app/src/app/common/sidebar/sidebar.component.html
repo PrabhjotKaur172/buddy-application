@@ -2,13 +2,13 @@
 <p>DBS Buddy Application</p>
 <ul class="list-group list-css">
     <li class="list-group-item"><a routerLink="/myProfile" routerLinkActive="active">My Profile</a></li>
-    <li class="list-group-item" *ngIf="student.username !== 'admin'"><a routerLink="/yourBuddy">My Buddy</a></li>
-    <li class="list-group-item" *ngIf="student.username !== 'admin'"><a routerLink="/myMentee">My Mentee</a></li>
-    <li class="list-group-item" *ngIf="student.username !== 'admin'"><a routerLink="/connections">My Connections</a></li>
-    <li class="list-group-item" *ngIf="student.username !== 'admin'"><a routerLink="/groups">My Groups</a></li>
+    <li class="list-group-item" *ngIf="student.name !== 'Admin' && student.studentassignedid == null"><a routerLink="/yourBuddy">My Buddy</a></li>
+    <li class="list-group-item" *ngIf="student.name !== 'Admin' && student.studentassignedid != null"><a routerLink="/myMentee">My Mentee</a></li>
+    <li class="list-group-item" *ngIf="student.name !== 'Admin'"><a routerLink="/connections">My Connections</a></li>
+    <li class="list-group-item" *ngIf="student.name !== 'Admin'"><a routerLink="/groups">My Groups</a></li>
     <li class="list-group-item"><a routerLink="/collegeNews">College News</a></li>
-    <!-- <li class="list-group-item" *ngIf="student.username !== 'admin'"><a routerLink="/queries">My Queries</a></li> -->
-    <li class="list-group-item" *ngIf="student.username !== 'admin'"><a routerLink="/buddyFeedback">Buddy Feedback</a></li>
-    <li class="list-group-item" *ngIf="student.username === 'admin'"><a routerLink="/admin">Admin</a></li>
+    <!-- <li class="list-group-item" *ngIf="student.name !== 'Admin'"><a routerLink="/queries">My Queries</a></li> -->
+    <li class="list-group-item" *ngIf="student.name !== 'Admin' && student.studentassignedid == null"><a routerLink="/buddyFeedback">Buddy Feedback</a></li>
+    <li class="list-group-item" *ngIf="student.name === 'Admin'"><a routerLink="/Admin">Admin</a></li>
   </ul>
   </div>

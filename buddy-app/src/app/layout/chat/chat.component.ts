@@ -36,6 +36,12 @@ export class ChatComponent implements OnInit {
        });
        
        this.duplicateMessagesArray = JSON.parse(JSON.stringify(this.yourMessage));
+       this.duplicateMessagesArray.sort(function(x: any, y: any){
+            let date1: any = new Date(x.message_publish_time);
+            let date2 : any= new Date(y.message_publish_time);
+            return date1 - date2 ;
+        });
+        console.log('sorted messages array', this.duplicateMessagesArray);
       }
     });
     // console.log('this.socekt',this.socket);
