@@ -1,7 +1,9 @@
 <div style="position: relative">
 <div class="row">
     <div class="col col-sm-12 col-md-12 col-lg-12">
-        <div class="header-css"><a routerLink="/myProfile" routerLinkActive="active"><strong>{{student.username || 'First Login'}}</strong></a> | 
+        <div class="header-css">
+            <h3 class="logo-css">DBS BUDDY APPLICATION</h3>
+            <a routerLink="/myProfile" routerLinkActive="active"><strong>{{student.username || 'First Login'}}</strong></a> | 
             <span class="cursor-pointer" routerLink="/login" (click)="logout()"><strong>Logout</strong></span></div>
     </div>
 </div>
