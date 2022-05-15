@@ -32,6 +32,9 @@ export class ConnectionsComponent implements OnInit {
     this.dataService.getConnections(this.user).subscribe(response => {
        this.connections = response;
        this.connections = this.connections.filter((item:any) => item.studentid !== this.user.studentid);
+       this.connections.forEach((connection: any, index : any) => {
+          connection.image = "./../../../assets/images/image" + index + ".png";
+       });
        this.ngxService.stopLoader("loader-get-connections");
     })
   }
